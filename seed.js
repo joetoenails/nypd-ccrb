@@ -35,7 +35,9 @@ async function seed() {
     console.log(chalk.green('DONE'));
     await db.close();
   } catch (e) {
-    console.error(chalk.red('Seed disaster. Something wrong in seed.js', e));
+    console.error(
+      chalk.red('Seed disaster. Something wrong in seed.js', e, e.message)
+    );
   }
 }
 
