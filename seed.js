@@ -1,4 +1,4 @@
-const { Officer, Complaint, db } = require('./db');
+const { Officer, Complaint, db } = require('./server/db.js');
 const chalk = require('chalk');
 const csv = require('csv-parser');
 const fs = require('fs');
