@@ -9,12 +9,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "buildwatch": "webpack -w",
-    "build": "webpack",
-    "heroku-postbuild": "npm run build",
+    "build": "./node_modules/.bin/webpack --mode=\"production\"",
     "servewatch": "nodemon server/index.js",
     "serve": "node server/index.js",
     "start:dev": "npm run buildwatch & npm run servewatch",
-    "start": "npm run serve"
+    "start": "NODE_ENV=production npm run serve"
   },
   "author": "",
   "license": "ISC",
