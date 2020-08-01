@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "buildwatch": "webpack -w",
     "build": "webpack",
-    "heroku-postbuild": "webpack",
+    "heroku-postbuild": "npm run build",
     "servewatch": "nodemon server/index.js",
     "serve": "node server/index.js",
     "start:dev": "npm run buildwatch & npm run servewatch",
