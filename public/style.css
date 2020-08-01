@@ -1,0 +1,33 @@
+.complaint {
+  margin: 10px;
+}
+
+.officer-list-item {
+  margin: 5px;
+  padding: 5px;
+  border: solid black 1px;
+  border-radius: 5px;
+  width: 200px;
+}
+
+#cop-list-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.filter-button,
+.sort-button {
+  margin: 5px;
+  padding: 7px;
+}
+
+.complaint-group {
+  border: 2px solid gray;
+  margin: 5px;
+  padding: 5px;
+}
