@@ -3,14 +3,18 @@
   "version": "1.0.0",
   "description": "NYPD Complaints",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "buildwatch": "webpack -w",
     "build": "webpack",
+    "heroku-postbuild": "webpack",
     "servewatch": "nodemon server/index.js",
     "serve": "node server/index.js",
     "start:dev": "npm run buildwatch & npm run servewatch",
-    "start": "npm run build & npm run serve"
+    "start": "npm run serve"
   },
   "author": "",
   "license": "ISC",
