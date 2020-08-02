@@ -5,8 +5,23 @@ import { FilterButton } from './FilterButton';
 export const Cops = (props) => {
   const { officers, filter, setFilter, ethnicities, setSortType } = props;
   let ethnicityKeys = Object.keys(ethnicities);
+  console.log(props);
   return (
     <div>
+      <div></div>
+      <svg width="1500" height="200">
+        {officers.map((officer, idx) => {
+          return (
+            <rect
+              x={`${idx + 1}`}
+              y={75 - officer.complaints.length}
+              width="1"
+              height={`${officer.complaints.length}`}
+              fill="blue"
+            ></rect>
+          );
+        })}
+      </svg>
       <div>Filter By Officer Ethnicity (choose 1)</div>
       {ethnicityKeys.map((ethnicity) => (
         <FilterButton
