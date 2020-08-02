@@ -1,4 +1,4 @@
 node_modules/
 .env
 bundle.js
-bundle.map.js
+bundle.js.map
