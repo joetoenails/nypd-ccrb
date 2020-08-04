@@ -24,6 +24,10 @@ const Officer = db.define('officers', {
     type: INTEGER,
     allowNull: false,
   },
+  badge: {
+    type: STRING,
+    allowNull: false,
+  },
   commandNow: {
     type: STRING,
     allowNull: false,

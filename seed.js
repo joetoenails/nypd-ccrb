@@ -20,7 +20,7 @@ async function seed() {
   try {
     await db.sync({ force: true });
     console.log(chalk.green('DB Dropped and Synced'));
-    const lineItems = await parseCSV('./allegations_20200726939.csv');
+    const lineItems = await parseCSV('./allegations_202007271729.csv');
     console.log(chalk.green('CSV Parsed'));
     const uniqueOfficers = getUniques(lineItems);
     console.log(chalk.green('Unique Officers Filtered'));
@@ -48,6 +48,7 @@ function createOfficer(cop) {
     firstName: cop.first_name,
     lastName: cop.last_name,
     mosId: Number(cop.unique_mos_id),
+    badge: cop.shield_no,
     commandNow: cop.command_now,
     rankNow: cop.rank_now,
     rankAbbrev: cop.rank_abbrev_now,
