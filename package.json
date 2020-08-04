@@ -13,7 +13,8 @@
     "servewatch": "nodemon server/index.js",
     "serve": "node server/index.js",
     "start:dev": "npm run buildwatch & npm run servewatch",
-    "start": "NODE_ENV=production npm run serve"
+    "start": "NODE_ENV=production npm run serve",
+    "seed": "node --max-old-space-size=8192 seed.js"
   },
   "author": "",
   "license": "ISC",
