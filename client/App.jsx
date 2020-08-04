@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Cops } from './Cops';
 import { Cop } from './Cop';
 import { Home } from './Home';
+import { Graphs } from './Graphs';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import { compileComplaints } from './utils';
@@ -53,14 +54,25 @@ const App = (props) => {
     };
     setOfficers(sortOfficers(sortType));
   }, [sortType]);
-
+  console.log(officers);
   return (
     <Router>
       <Link to={'/'}>HOME</Link>
       <Link to={'/cops'}>COPS</Link>
+      <Link to={'/graphs'}>GRAPHS</Link>
       <Switch>
         <Route path="/cops/:id">
           <Cop officers={officers} />
+        </Route>
+        <Route path="/graphs">
+          <Graphs
+            officers={officers}
+            setFilter={setFilter}
+            filter={filter}
+            ethnicities={ethnicities}
+            setOfficers={setOfficers}
+            setSortType={setSortType}
+          />
         </Route>
         <Route path="/cops">
           <Cops
