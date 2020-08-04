@@ -6,7 +6,7 @@ const db = new Sequelize(
     pool: {
       max: 5,
       idle: 30000,
-      acquire: 100000,
+      acquire: 200000,
     },
   }
 );
