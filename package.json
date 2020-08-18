@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "buildwatch": "webpack -w",
     "build": "./node_modules/.bin/webpack --mode=\"production\" --display-error-details",
-    "servewatch": "nodemon server/index.js",
+    "servewatch": "nodemon --watch server server/index.js",
     "serve": "node server/index.js",
     "start:dev": "npm run buildwatch & npm run servewatch",
     "start": "NODE_ENV=production npm run serve",
