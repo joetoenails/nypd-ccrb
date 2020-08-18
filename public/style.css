@@ -39,3 +39,16 @@ a {
   margin: 5px;
   padding: 5px;
 }
+
+.nav ul {
+  display: flex;
+  list-style: none;
+}
+
+.nav ul li {
+  margin: 5px;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}

@@ -3,11 +3,21 @@ import { Link } from 'react-router-dom';
 
 export const Nav = (props) => {
   return (
-    <>
-      <Link to={'/'}>HOME</Link>
-      <Link to={'/cops'}>COPS</Link>
-      <Link to={'/graphs'}>GRAPHS</Link>
-      <Link to={'/graphsethnicity'}>GRAPHS Eths</Link>
-    </>
+    <div className="nav">
+      <ul>
+        <li>
+          <Link to={'/'}>HOME</Link>
+        </li>
+        <li>
+          <Link to={'/squares'}>SQUARES</Link>
+        </li>
+        <li>
+          <Link to={'/graphs'}>GRAPHS</Link>
+        </li>
+        <li>
+          <Link to={'/graphsethnicity'}>GRAPHS Eths</Link>
+        </li>
+      </ul>
+    </div>
   );
 };
