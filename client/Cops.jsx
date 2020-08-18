@@ -1,5 +1,6 @@
 import React from 'react';
 import { CopListItem } from './CopListItem';
+import { CopListSquare } from './CopListSqaure';
 import { FilterButton } from './FilterButton';
 import { Loading } from './Loading';
 
@@ -8,7 +9,17 @@ export const Cops = (props) => {
   let ethnicityKeys = Object.keys(ethnicities).sort(
     (a, b) => ethnicities[b] - ethnicities[a]
   );
-
+  const count = Object.keys(ethnicities).reduce(
+    (acc, cur) => ethnicities[cur] + acc,
+    0
+  );
+  const colorKey = {
+    White: 'red',
+    Black: 'orange',
+    Asian: 'green',
+    Hispanic: 'indigo',
+    'American Indian': 'blue',
+  };
   return officers.length ? (
     <div>
       <div>Filter By Officer Ethnicity (choose 1)</div>
@@ -19,8 +30,17 @@ export const Cops = (props) => {
           setFilter={setFilter}
           count={ethnicities[ethnicity]}
           key={ethnicity}
+          backgroundColor={colorKey[ethnicity]}
         />
       ))}
+      <FilterButton
+        ethnicity={'all'}
+        filter={filter}
+        setFilter={setFilter}
+        count={count}
+        key={'all'}
+        backgroundColor={'gray'}
+      />
       <div>
         Sort by:
         <div>
@@ -51,7 +71,7 @@ export const Cops = (props) => {
             return true;
           })
           .map((officer) => {
-            return <CopListItem officer={officer} key={officer.mosId} />;
+            return <CopListSquare officer={officer} key={officer.mosId} />;
           })}
       </div>
     </div>
