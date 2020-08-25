@@ -1,11 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import _ from 'lodash';
 import { FilterButton } from './FilterButton';
 import { Link } from 'react-router-dom';
 import { Loading } from './Loading';
 import * as d3 from 'd3';
 
 export const Graphs = (props) => {
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth < 800 ? window.innerWidth : 800,
+  });
+  useEffect(() => {
+    const handleResize = _.debounce(() => {
+      console.log(window.innerWidth);
+      const container = document.getElementById('cop-list-container');
+      console.log(container.clientWidth);
+      setDimensions({
+        width: container.clientWidth,
+      });
+    }, 500);
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
+
   const { officers, filter, setFilter, ethnicities, setSortType } = props;
+
   const ethnicityKeys = Object.keys(ethnicities).sort(
     (a, b) => ethnicities[b] - ethnicities[a]
   );
@@ -21,14 +42,18 @@ export const Graphs = (props) => {
     Hispanic: 'indigo',
     'American Indian': 'blue',
   };
-  const height = 20000;
-  const width = 1000;
+  const height = 10000;
+
   const yScale = d3
     .scaleLinear()
     .domain([0, officers.length])
-    .range([0, height * 2]);
+    .range([0, height]);
 
-  const complaintScale = d3.scaleLinear().domain([0, 75]).range([0, width]);
+  const complaintScale = d3
+    .scaleLinear()
+    .domain([0, 75])
+    .range([0, dimensions.width]);
+
   return officers.length ? (
     <div>
       <div>Filter By Officer Ethnicity (choose 1)</div>
@@ -71,7 +96,7 @@ export const Graphs = (props) => {
       </div>
 
       <div id="cop-list-container">
-        <svg width={width} height={height * 2}>
+        <svg width={dimensions.width} height={height}>
           {officers
             .filter((element) => {
               for (const category in filter) {
@@ -88,7 +113,7 @@ export const Graphs = (props) => {
                     y={yScale(idx)}
                     x={0}
                     width={complaintScale(officer.complaints.length)}
-                    height={5}
+                    height={1}
                     fill={colorKey[officer.ethnicity]}
                   >
                     <title>{`${officer.firstName} ${officer.lastName}`}</title>

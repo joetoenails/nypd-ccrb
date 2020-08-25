@@ -43,10 +43,11 @@ a {
 .nav ul {
   display: flex;
   list-style: none;
+  padding-inline-start: 0px;
 }
 
 .nav ul li {
-  margin: 5px;
+  margin: 0 5px 0 0;
 }
 .container {
   max-width: 800px;
