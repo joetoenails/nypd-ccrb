@@ -5,10 +5,13 @@ import { Cops } from './Cops';
 import { Cop } from './Cop';
 import { Home } from './Home';
 import { Graphs } from './Graphs';
-import { GraphEthnicity } from './GraphEthnicity';
+
+import { Sunburst } from './Sunburst';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import { compileComplaints } from './utils';
+import { SunburstClass } from './SunburstClass';
+import { ZoomSunburstClass } from './ZoomSunburstClass';
 
 const App = (props) => {
   const [officers, setOfficers] = useState([]);
@@ -56,7 +59,6 @@ const App = (props) => {
     };
     setOfficers(sortOfficers(sortType));
   }, [sortType]);
-  console.log(officers, ethnicities);
   return (
     <div className="container">
       <Router>
@@ -78,8 +80,28 @@ const App = (props) => {
           <Route path="/cops/:id">
             <Cop officers={officers} />
           </Route>
-          <Route path="/graphsethnicity">
-            <GraphEthnicity
+          <Route path="/sunburst">
+            <Sunburst
+              officers={officers}
+              setFilter={setFilter}
+              filter={filter}
+              ethnicities={ethnicities}
+              setOfficers={setOfficers}
+              setSortType={setSortType}
+            />
+          </Route>
+          <Route path="/pie">
+            <SunburstClass
+              officers={officers}
+              setFilter={setFilter}
+              filter={filter}
+              ethnicities={ethnicities}
+              setOfficers={setOfficers}
+              setSortType={setSortType}
+            />
+          </Route>
+          <Route path="/piezoom">
+            <ZoomSunburstClass
               officers={officers}
               setFilter={setFilter}
               filter={filter}

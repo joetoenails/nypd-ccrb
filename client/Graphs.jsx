@@ -7,7 +7,7 @@ import * as d3 from 'd3';
 
 export const Graphs = (props) => {
   const [dimensions, setDimensions] = useState({
-    width: window.innerWidth < 800 ? window.innerWidth : 800,
+    width: window.innerWidth < 800 ? window.innerWidth - 100 : 800,
   });
   useEffect(() => {
     const handleResize = _.debounce(() => {
@@ -17,7 +17,7 @@ export const Graphs = (props) => {
       setDimensions({
         width: container.clientWidth,
       });
-    }, 500);
+    }, 250);
 
     window.addEventListener('resize', handleResize);
     return () => {

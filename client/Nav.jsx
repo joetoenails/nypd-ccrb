@@ -15,7 +15,7 @@ export const Nav = (props) => {
           <Link to={'/graphs'}>GRAPHS</Link>
         </li>
         <li>
-          <Link to={'/graphsethnicity'}>GRAPHS Eths</Link>
+          <Link to={'/pie'}>PIE</Link>
         </li>
       </ul>
     </div>
