@@ -13,6 +13,7 @@ import { compileComplaints } from './utils';
 import { SunburstClass } from './SunburstClass';
 import { ZoomSunburstClass } from './ZoomSunburstClass';
 import { SunburstHOC } from './SunburstHOC';
+import { SunburstHOCZoom } from './SunburstHOCZoom';
 
 const App = (props) => {
   const [officers, setOfficers] = useState([]);
@@ -81,8 +82,8 @@ const App = (props) => {
           <Route path="/cops/:id">
             <Cop officers={officers} />
           </Route>
-          <Route path="/sunburst">
-            <Sunburst
+          <Route path="/piezoom">
+            <SunburstHOCZoom
               officers={officers}
               setFilter={setFilter}
               filter={filter}

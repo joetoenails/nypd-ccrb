@@ -17,6 +17,9 @@ export const Nav = (props) => {
         <li>
           <Link to={'/pie'}>PIE</Link>
         </li>
+        <li>
+          <Link to={'/piezoom'}>PIEZOOM</Link>
+        </li>
       </ul>
     </div>
   );
