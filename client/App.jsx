@@ -12,6 +12,7 @@ import axios from 'axios';
 import { compileComplaints } from './utils';
 import { SunburstClass } from './SunburstClass';
 import { ZoomSunburstClass } from './ZoomSunburstClass';
+import { SunburstHOC } from './SunburstHOC';
 
 const App = (props) => {
   const [officers, setOfficers] = useState([]);
@@ -91,7 +92,7 @@ const App = (props) => {
             />
           </Route>
           <Route path="/pie">
-            <SunburstClass
+            <SunburstHOC
               officers={officers}
               setFilter={setFilter}
               filter={filter}

@@ -9,7 +9,7 @@ const path = require('path');
 if (process.env.NODE_ENV !== 'production') {
   app.use(require('morgan')('dev'));
 }
-
+app.use(express.json());
 app.use('/api', api);
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
