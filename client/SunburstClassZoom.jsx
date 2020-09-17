@@ -90,9 +90,14 @@ export class SunburstClassZoom extends React.Component {
       .style('cursor', 'pointer')
       .on('click', clicked);
 
-    path
-      .append('title')
-      .text((d) => `${d.ancestors().reverse().join('/')}\n${format(d.value)}`);
+    path.append('title').text(
+      (d) =>
+        `${d
+          .ancestors()
+          .map((d) => d.data.name)
+          .reverse()
+          .join('/')}\n${format(d.value)} Allegations`
+    );
 
     const label = g
       .append('g')
@@ -105,6 +110,7 @@ export class SunburstClassZoom extends React.Component {
       .attr('dy', '0.35em')
       .attr('fill-opacity', (d) => +labelVisible(d.current))
       .attr('transform', (d) => labelTransform(d.current))
+      .attr('font-size', '1.5em')
       .text((d) => d.data.name);
 
     const parent = g
