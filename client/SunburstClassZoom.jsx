@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
+import { Loading } from './Loading';
 
 // import { data } from './utils';
 import data from '../ethincity.json';
@@ -90,9 +91,14 @@ export class SunburstClassZoom extends React.Component {
       .style('cursor', 'pointer')
       .on('click', clicked);
 
-    path
-      .append('title')
-      .text((d) => `${d.ancestors().reverse().join('/')}\n${format(d.value)}`);
+    path.append('title').text(
+      (d) =>
+        `${d
+          .ancestors()
+          .map((d) => d.data.name)
+          .reverse()
+          .join('/')}\n${format(d.value)} Allegations`
+    );
 
     const label = g
       .append('g')
@@ -105,6 +111,7 @@ export class SunburstClassZoom extends React.Component {
       .attr('dy', '0.35em')
       .attr('fill-opacity', (d) => +labelVisible(d.current))
       .attr('transform', (d) => labelTransform(d.current))
+      .attr('font-size', '1.5em')
       .text((d) => d.data.name);
 
     const parent = g
@@ -185,8 +192,10 @@ export class SunburstClassZoom extends React.Component {
 
   render() {
     console.log('props in SunburstClassZoom', this.props);
-    return (
-      <div>
+    return this.props.isLoading ? (
+      <Loading />
+    ) : (
+      <div className="graph-container">
         <div ref={this.node}></div>
       </div>
     );

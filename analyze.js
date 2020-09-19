@@ -82,7 +82,7 @@ function build(result, c, layers) {
       currentObjectPlace.children.push(categoryObject);
     }
     if (i === layers.length - 1) {
-      categoryObject.children.push(c);
+      // categoryObject.children.push(c);
       if (categoryObject.value) {
         categoryObject.value++;
       } else {

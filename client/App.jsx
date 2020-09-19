@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Nav } from './Nav';
+import { Navigation } from './Nav';
 import { Cops } from './Cops';
 import { Cop } from './Cop';
 import { Home } from './Home';
@@ -14,27 +14,28 @@ import { SunburstClass } from './SunburstClass';
 import { ZoomSunburstClass } from './ZoomSunburstClass';
 import { SunburstHOC } from './SunburstHOC';
 import { SunburstHOCZoom } from './SunburstHOCZoom';
+import Container from 'react-bootstrap/Container';
 
 const App = (props) => {
   const [officers, setOfficers] = useState([]);
   const [ethnicities, setEthnicities] = useState({});
-  useEffect(() => {
-    axios.get('/api/cops').then(({ data }) => {
-      data.forEach((d) => {
-        d.uniqueComplaints = compileComplaints(d);
-      });
-      setOfficers(data);
-      const allEthnicities = data.reduce((ethnicities, cop) => {
-        if (!(cop.ethnicity in ethnicities)) {
-          ethnicities[cop.ethnicity] = 1;
-        } else {
-          ethnicities[cop.ethnicity]++;
-        }
-        return ethnicities;
-      }, {});
-      setEthnicities(allEthnicities);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('/api/cops').then(({ data }) => {
+  //     data.forEach((d) => {
+  //       d.uniqueComplaints = compileComplaints(d);
+  //     });
+  //     setOfficers(data);
+  //     const allEthnicities = data.reduce((ethnicities, cop) => {
+  //       if (!(cop.ethnicity in ethnicities)) {
+  //         ethnicities[cop.ethnicity] = 1;
+  //       } else {
+  //         ethnicities[cop.ethnicity]++;
+  //       }
+  //       return ethnicities;
+  //     }, {});
+  //     setEthnicities(allEthnicities);
+  //   });
+  // }, []);
 
   const [filter, setFilter] = useState({
     ethnicity: 'all',
@@ -62,9 +63,10 @@ const App = (props) => {
     setOfficers(sortOfficers(sortType));
   }, [sortType]);
   return (
-    <div className="container">
+    // <div className="container">
+    <Container fluid="sm">
       <Router>
-        <Nav />
+        <Navigation />
         <div>
           <p>
             These are all of the officers in the CCRB database that have
@@ -139,7 +141,8 @@ const App = (props) => {
           </Route>
         </Switch>
       </Router>
-    </div>
+      {/* </div> */}
+    </Container>
   );
 };
 

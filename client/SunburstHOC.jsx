@@ -11,6 +11,7 @@ export class SunburstHOC extends React.Component {
       firstSlice: 'complaintEthnicity',
       secondSlice: 'complaintGender',
       thirdSlice: 'fadoType',
+      isLoading: false,
     };
   }
 
@@ -27,6 +28,7 @@ export class SunburstHOC extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
     const { firstSlice, secondSlice, thirdSlice } = this.state;
     axios
       .post('/api/burst', {
@@ -37,6 +39,7 @@ export class SunburstHOC extends React.Component {
       .then((res) => {
         this.setState({
           complaintGraphData: res.data,
+          isLoading: false,
         });
       });
   };
@@ -102,7 +105,10 @@ export class SunburstHOC extends React.Component {
             <button>make graph</button>
           </form>
 
-          <SunburstClass data={this.state.complaintGraphData} />
+          <SunburstClass
+            data={this.state.complaintGraphData}
+            isLoading={this.state.isLoading}
+          />
         </div>
       </div>
     );
