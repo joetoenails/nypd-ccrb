@@ -1,5 +1,11 @@
 import React from 'react';
 
+import Spinner from 'react-bootstrap/Spinner';
+
 export const Loading = (props) => {
-  return <div>RELAX I'M LOADING</div>;
+  return (
+    <Spinner animation="border" role="status">
+      <span className="sr-only">RELAX I'M LOADING...</span>
+    </Spinner>
+  );
 };

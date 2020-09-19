@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
+import { Loading } from './Loading';
 
 // import { data } from './utils';
 import data from '../ethincity.json';
@@ -191,8 +192,10 @@ export class SunburstClassZoom extends React.Component {
 
   render() {
     console.log('props in SunburstClassZoom', this.props);
-    return (
-      <div>
+    return this.props.isLoading ? (
+      <Loading />
+    ) : (
+      <div className="graph-container">
         <div ref={this.node}></div>
       </div>
     );
