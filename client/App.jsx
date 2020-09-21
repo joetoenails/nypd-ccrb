@@ -18,7 +18,6 @@ import Container from 'react-bootstrap/Container';
 
 const App = (props) => {
   const [officers, setOfficers] = useState([]);
-  const [ethnicities, setEthnicities] = useState({});
   // useEffect(() => {
   //   axios.get('/api/cops').then(({ data }) => {
   //     data.forEach((d) => {
@@ -36,6 +35,19 @@ const App = (props) => {
   //     setEthnicities(allEthnicities);
   //   });
   // }, []);
+  useEffect(() => {
+    axios.get('/api/complaints-tweak').then(({ data }) => {
+      setOfficers(data);
+    });
+  }, []);
+
+  const [ethnicities, setEthnicities] = useState({});
+
+  useEffect(() => {
+    axios.get('/api/cops-ethnicity').then(({ data }) => {
+      setEthnicities(data);
+    });
+  }, []);
 
   const [filter, setFilter] = useState({
     ethnicity: 'all',
@@ -46,7 +58,7 @@ const App = (props) => {
     const sortOfficers = (type) => {
       if (type === 'complaints') {
         return officers.slice().sort((a, b) => {
-          return b[type].length - a[type].length;
+          return b.count - a.count;
         });
       } else {
         return officers.slice().sort((a, b) => {
@@ -62,6 +74,8 @@ const App = (props) => {
     };
     setOfficers(sortOfficers(sortType));
   }, [sortType]);
+  console.log('eth', ethnicities);
+  console.log('cop', officers);
   return (
     // <div className="container">
     <Container fluid="sm">

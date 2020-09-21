@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Complaint } from './Complaint';
 import { compileComplaints } from './utils';
 import { Loading } from './Loading';
+import axios from 'axios';
 
-export const Cop = ({ officers }) => {
+export const Cop = (props) => {
   const { id } = useParams();
+  const [officer, setOfficer] = useState({});
+  useEffect(() => {
+    axios.get(`/api/cops/${id}`).then(({ data }) => setOfficer(data));
+  }, []);
 
-  const officer = officers.find((cop) => {
-    return cop.mosId === Number(id);
-  });
-  if (!officer) return <Loading />;
+  const [complaints, setComplaints] = useState([]);
+  useEffect(() => {
+    axios.get(`/api/complaints?officer=${id}`).then(({ data }) => {
+      console.log('complaints', data);
+      setComplaints(data);
+    });
+  }, []);
 
-  const groupedComplaints = compileComplaints(officer);
+  if (!officer || !complaints.length) return <Loading />;
 
+  const groupedComplaints = compileComplaints(complaints);
+  console.log('cs', complaints, 'gcs', groupedComplaints);
   return (
     <>
       <div>

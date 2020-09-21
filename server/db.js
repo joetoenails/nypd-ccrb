@@ -23,6 +23,7 @@ const Officer = db.define('officers', {
   mosId: {
     type: INTEGER,
     allowNull: false,
+    primaryKey: true,
   },
   badge: {
     type: STRING,
@@ -70,8 +71,8 @@ const Complaint = db.define('complaints', {
   boardDisposition: { type: STRING, allowNull: false },
 });
 
-Officer.belongsToMany(Complaint, { through: 'officerComplaint' });
-Complaint.belongsToMany(Officer, { through: 'officerComplaint' });
+Officer.hasMany(Complaint);
+Complaint.belongsTo(Officer);
 
 module.exports = {
   db,
