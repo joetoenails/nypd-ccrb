@@ -35,9 +35,10 @@ async function seed() {
     console.log(chalk.green('DONE'));
     await db.close();
   } catch (e) {
-    console.error(
-      chalk.red('Seed disaster. Something wrong in seed.js', e, e.message)
-    );
+    console.error(chalk.red('**Seed disaster. Something wrong in seed.js'));
+    console.error(chalk.red('**', e));
+    console.error(chalk.red('**', e.message));
+    await db.close();
   }
 }
 
@@ -92,13 +93,8 @@ async function createComplaintAssignToOfficer(complaint) {
     board_disposition,
   } = complaint;
 
-  let officer = await Officer.findOne({
-    where: {
-      mosId: unique_mos_id,
-    },
-  });
   let createdComplaint = await Complaint.create({
-    complaintId: complaint_id,
+    complaintId: Number(complaint_id),
     monthReceived: month_received,
     yearReceived: year_received,
     monthClosed: month_closed,
@@ -118,5 +114,5 @@ async function createComplaintAssignToOfficer(complaint) {
     boardDisposition: board_disposition,
   });
 
-  await officer.addComplaint(createdComplaint);
+  await createdComplaint.setOfficer(Number(unique_mos_id));
 }

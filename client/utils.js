@@ -6,7 +6,7 @@ export const toggleFilter = (category, type, state, stateSet) => {
   }
 };
 
-export const compileComplaints = ({ complaints }) => {
+export const compileComplaints = (complaints) => {
   const complaintsById = {};
   complaints.forEach((complaint) => {
     if (complaint.complaintId in complaintsById) {

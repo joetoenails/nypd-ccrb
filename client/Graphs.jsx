@@ -107,12 +107,15 @@ export const Graphs = (props) => {
             })
             .map((officer, idx) => {
               return (
-                <Link key={officer.mosId} to={`/cops/${officer.mosId}`}>
+                <Link
+                  key={officer.officerMosId}
+                  to={`/cops/${officer.officerMosId}`}
+                >
                   <rect
                     id={officer.mosId}
                     y={yScale(idx)}
                     x={0}
-                    width={complaintScale(officer.complaints.length)}
+                    width={complaintScale(officer.count)}
                     height={1}
                     fill={colorKey[officer.ethnicity]}
                   >

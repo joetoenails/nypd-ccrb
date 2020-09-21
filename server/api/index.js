@@ -1,6 +1,36 @@
 const router = require('express').Router();
-const { Officer, Complaint } = require('../db');
+const { Officer, Complaint, db } = require('../db');
 const { build } = require('../../analyze');
+
+router.get('/complaints-tweak', async (req, res, next) => {
+  try {
+    const [
+      result,
+      meta,
+    ] = await db.query(`select count(*), "officerMosId", officers."firstName", officers."lastName", officers.ethnicity, officers.badge from complaints
+join officers on complaints."officerMosId" = officers."mosId"
+group by complaints."officerMosId", officers."firstName", officers."lastName", officers.badge, officers.ethnicity;
+`);
+    res.send(result);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.get('/cops-ethnicity', (req, res, next) => {
+  db.query(
+    `select count(ethnicity), ethnicity from officers
+group by ethnicity`
+  )
+    .then(([data, meta]) => {
+      const ethnicityObj = data.reduce((acc, curr) => {
+        acc[curr.ethnicity] = Number(curr.count);
+        return acc;
+      }, {});
+      res.send(ethnicityObj);
+    })
+    .catch(next);
+});
 
 router.get('/cops', (req, res, next) => {
   Officer.findAll({
@@ -13,14 +43,34 @@ router.get('/cops', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/complaints', (req, res, next) => {
-  Complaint.findAll({
-    where: req.query,
+router.get('/cops/:id', async (req, res, next) => {
+  Officer.findOne({
+    where: {
+      mosId: req.params.id,
+    },
   })
-    .then((complaints) => {
-      res.send(complaints);
-    })
+    .then((officer) => res.send(officer))
     .catch(next);
+});
+
+router.get('/complaints', (req, res, next) => {
+  if (req.query.officer) {
+    Complaint.findAll({
+      where: {
+        officerMosId: req.query.officer,
+      },
+    })
+      .then((complaints) => res.send(complaints))
+      .catch(next);
+  } else {
+    Complaint.findAll({
+      where: req.query,
+    })
+      .then((complaints) => {
+        res.send(complaints);
+      })
+      .catch(next);
+  }
 });
 
 router.post('/burst', async (req, res, next) => {
