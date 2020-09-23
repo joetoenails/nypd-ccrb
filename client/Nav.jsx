@@ -12,21 +12,31 @@ export const Navigation = (props) => {
       expand="sm"
       fixed="top"
     >
-      <Navbar.Brand href="/">NYPD-CCRB Visualized</Navbar.Brand>
+      <Navbar.Brand href="/">
+        <h1>NYPD-CCRB Visualized</h1>
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav activeKey="/home">
           <Nav.Item>
-            <Nav.Link href="/squares">Squares</Nav.Link>
+            <Nav.Link href="/squares">
+              <h3>Squares</h3>
+            </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/graphs">Graphs</Nav.Link>
+            <Nav.Link href="/graphs">
+              <h3>Graphs</h3>
+            </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/pie">Pie</Nav.Link>
+            <Nav.Link href="/pie">
+              <h3>Pie</h3>
+            </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/piezoom">piezoom</Nav.Link>
+            <Nav.Link href="/piezoom">
+              <h3>Piezoom</h3>
+            </Nav.Link>
           </Nav.Item>
         </Nav>
       </Navbar.Collapse>
