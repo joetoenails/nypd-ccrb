@@ -9,7 +9,7 @@ export const Navigation = (props) => {
       collapseOnSelect
       bg="primary"
       variant="dark"
-      expand="sm"
+      expand="lg"
       fixed="top"
     >
       <Navbar.Brand href="/">NYPD-CCRB Visualized</Navbar.Brand>
