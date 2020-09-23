@@ -78,85 +78,87 @@ const App = (props) => {
   console.log('cop', officers);
   return (
     // <div className="container">
-    <Container fluid="sm">
-      <Router>
-        <Navigation />
-        <div>
-          <p>
-            These are all of the officers in the CCRB database that have
-            complaints against them. The data is from 1985 through 2019, with 4
-            complaints from 2020. Use the nav bar to see this information
-            visualized in various ways. It's difficult to digest what these
-            things mean, so it is my hope that illustrating in several different
-            ways can help inform the reader in what this information actually
-            represents. Mostly that, tax payers are paying police officers to
-            intimidate through violence and threat of death instead of serving
-            communities.
-          </p>
-        </div>
-        <Switch>
-          <Route path="/cops/:id">
-            <Cop officers={officers} />
-          </Route>
-          <Route path="/piezoom">
-            <SunburstHOCZoom
-              officers={officers}
-              setFilter={setFilter}
-              filter={filter}
-              ethnicities={ethnicities}
-              setOfficers={setOfficers}
-              setSortType={setSortType}
-            />
-          </Route>
-          <Route path="/pie">
-            <SunburstHOC
-              officers={officers}
-              setFilter={setFilter}
-              filter={filter}
-              ethnicities={ethnicities}
-              setOfficers={setOfficers}
-              setSortType={setSortType}
-            />
-          </Route>
-          <Route path="/piezoom">
-            <ZoomSunburstClass
-              officers={officers}
-              setFilter={setFilter}
-              filter={filter}
-              ethnicities={ethnicities}
-              setOfficers={setOfficers}
-              setSortType={setSortType}
-            />
-          </Route>
+    <>
+      <Navigation />
+      <Container fluid="sm" className="app-body">
+        <Router>
+          <div>
+            <p>
+              These are all of the officers in the CCRB database that have
+              complaints against them. The data is from 1985 through 2019, with
+              4 complaints from 2020. Use the nav bar to see this information
+              visualized in various ways. It's difficult to digest what these
+              things mean, so it is my hope that illustrating in several
+              different ways can help inform the reader in what this information
+              actually represents. Mostly that, tax payers are paying police
+              officers to intimidate through violence and threat of death
+              instead of serving communities.
+            </p>
+          </div>
+          <Switch>
+            <Route path="/cops/:id">
+              <Cop officers={officers} />
+            </Route>
+            <Route path="/piezoom">
+              <SunburstHOCZoom
+                officers={officers}
+                setFilter={setFilter}
+                filter={filter}
+                ethnicities={ethnicities}
+                setOfficers={setOfficers}
+                setSortType={setSortType}
+              />
+            </Route>
+            <Route path="/pie">
+              <SunburstHOC
+                officers={officers}
+                setFilter={setFilter}
+                filter={filter}
+                ethnicities={ethnicities}
+                setOfficers={setOfficers}
+                setSortType={setSortType}
+              />
+            </Route>
+            <Route path="/piezoom">
+              <ZoomSunburstClass
+                officers={officers}
+                setFilter={setFilter}
+                filter={filter}
+                ethnicities={ethnicities}
+                setOfficers={setOfficers}
+                setSortType={setSortType}
+              />
+            </Route>
 
-          <Route path="/graphs">
-            <Graphs
-              officers={officers}
-              setFilter={setFilter}
-              filter={filter}
-              ethnicities={ethnicities}
-              setOfficers={setOfficers}
-              setSortType={setSortType}
-            />
-          </Route>
+            <Route path="/graphs">
+              <Graphs
+                officers={officers}
+                setFilter={setFilter}
+                filter={filter}
+                ethnicities={ethnicities}
+                setOfficers={setOfficers}
+                setSortType={setSortType}
+              />
+            </Route>
 
-          <Route path="/squares">
-            <Cops
-              officers={officers}
-              setFilter={setFilter}
-              filter={filter}
-              ethnicities={ethnicities}
-              setOfficers={setOfficers}
-              setSortType={setSortType}
-            />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-      {/* </div> */}
-    </Container>
+            <Route path="/squares">
+              <Cops
+                officers={officers}
+                setFilter={setFilter}
+                filter={filter}
+                ethnicities={ethnicities}
+                setOfficers={setOfficers}
+                setSortType={setSortType}
+              />
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
+        {/* </div> */}
+      </Container>
+    </>
   );
 };
 
