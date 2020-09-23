@@ -53,3 +53,7 @@ a {
   max-width: 800px;
   margin: 2rem auto;
 }
+
+.app-body {
+  margin-top: 100px;
+}
