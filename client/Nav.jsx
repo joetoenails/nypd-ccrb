@@ -19,47 +19,27 @@ export const Navigation = (props) => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav activeKey="/home">
           <Nav.Item>
-            <Nav.Link href="/squares">
+            <Nav.Link as={Link} to="/squares">
               <h3>Squares</h3>
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/graphs">
+            <Nav.Link as={Link} to="/graphs">
               <h3>Graphs</h3>
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/pie">
+            <Nav.Link as={Link} to="/pie">
               <h3>Pie</h3>
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/piezoom">
+            <Nav.Link as={Link} to="/piezoom">
               <h3>Piezoom</h3>
             </Nav.Link>
           </Nav.Item>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-    // <div className="nav">
-
-    //   <ul>
-    //     <li>
-    //       <Link to={'/'}>HOME</Link>
-    //     </li>
-    //     <li>
-    //       <Link to={'/squares'}>SQUARES</Link>
-    //     </li>
-    //     <li>
-    //       <Link to={'/graphs'}>GRAPHS</Link>
-    //     </li>
-    //     <li>
-    //       <Link to={'/pie'}>PIE</Link>
-    //     </li>
-    //     <li>
-    //       <Link to={'/piezoom'}>PIEZOOM</Link>
-    //     </li>
-    //   </ul>
-    // </div>
   );
 };
