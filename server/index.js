@@ -13,6 +13,9 @@ app.use(express.json());
 app.use('/api', api);
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(
+  express.static(path.join(__dirname, '..', 'node_modules', 'tablesaw', 'dist'))
+);
 
 app.use('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));

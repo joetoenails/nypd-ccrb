@@ -4,6 +4,8 @@ import { Complaint } from './Complaint';
 import { compileComplaints } from './utils';
 import { Loading } from './Loading';
 import axios from 'axios';
+import Tablesaw from 'tablesaw';
+import { ComplaintRow } from './ComplaintRow';
 
 export const Cop = (props) => {
   const { id } = useParams();
@@ -20,32 +22,55 @@ export const Cop = (props) => {
     });
   }, []);
 
+  useEffect(() => {
+    Tablesaw.init();
+  });
   if (!officer || !complaints.length) return <Loading />;
 
   const groupedComplaints = compileComplaints(complaints);
   console.log('cs', complaints, 'gcs', groupedComplaints);
+
   return (
     <>
-      <div>
+      <h2>
         Name: {officer.lastName}, {officer.firstName}
-      </div>
-      <div>ID: {officer.mosId}</div>
-      <div>Ethnicity: {officer.ethnicity}</div>
-      <div>Gender: {officer.gender}</div>
+      </h2>
+      <h4>Ethnicity: {officer.ethnicity}</h4>
+      <h4>Gender: {officer.gender === 'M' ? 'Male' : 'Female'}</h4>
+      <h4>Badge #: {officer.badge === '0' ? 'Unkn own' : officer.badge}</h4>
+
       <div>
-        Complaints:
         <ul>
           {Object.keys(groupedComplaints).map((group) => {
             return (
-              <div key={group} className="complaint-group">
-                Complaint #: {group}
-                {groupedComplaints[group].map((complaint) => {
-                  return (
-                    <li key={complaint.id} className="complaint">
-                      <Complaint complaint={complaint} />
-                    </li>
-                  );
-                })}
+              <div className="complaint-container">
+                <h4>
+                  Complaint Received:
+                  {groupedComplaints[group][0].monthReceived},
+                  {groupedComplaints[group][0].yearReceived}
+                </h4>
+
+                <table className="tablesaw" data-tablesaw-mode="stack">
+                  <thead>
+                    <tr>
+                      <th scope="col">Allegation</th>
+                      <th scope="col" data-tablesaw-priority="4">
+                        Officer Rank
+                      </th>
+                      <th scope="col" data-tablesaw-priority="4">
+                        Complaintant
+                      </th>
+                      <th scope="col">Reason for Interaction</th>
+
+                      <th scope="col">Board Outcome</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {groupedComplaints[group].map((complaint) => {
+                      return <ComplaintRow complaint={complaint} />;
+                    })}
+                  </tbody>
+                </table>
               </div>
             );
           })}
