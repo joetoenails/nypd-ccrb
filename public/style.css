@@ -32,6 +32,8 @@ a {
 .sort-button {
   margin: 5px;
   padding: 7px;
+  background-color: white;
+  color: black;
 }
 
 .complaint-group {

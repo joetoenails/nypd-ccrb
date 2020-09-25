@@ -8,6 +8,17 @@ export const FilterButton = ({
   count,
   backgroundColor,
 }) => {
+  const activeButton = {
+    backgroundColor: `${backgroundColor}`,
+    color: 'white',
+    border: `1px  solid white`,
+  };
+  const inactiveButton = {
+    color: `${backgroundColor}`,
+    backgroundColor: 'white',
+    border: `1px solid ${backgroundColor}`,
+  };
+
   return (
     <button
       className="filter-button"
@@ -15,7 +26,7 @@ export const FilterButton = ({
       key={ethnicity}
       type="button"
       onClick={() => toggleFilter('ethnicity', ethnicity, filter, setFilter)}
-      style={{ backgroundColor: `${backgroundColor}`, color: 'white' }}
+      style={filter.ethnicity === ethnicity ? activeButton : inactiveButton}
     >
       {ethnicity} ({count})
     </button>

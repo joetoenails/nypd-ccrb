@@ -3,6 +3,8 @@ const { Officer, Complaint, db } = require('../db');
 const { build } = require('../../analyze');
 
 router.get('/complaints-tweak', async (req, res, next) => {
+  // grab all officers and count how many allegations they have against them
+  //TODO: add count of complaints here as well.
   try {
     const [
       result,

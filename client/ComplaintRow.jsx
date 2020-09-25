@@ -1,8 +1,10 @@
 import React from 'react';
+import { parseComplaintantInfo } from './utils';
 
 export const ComplaintRow = (props) => {
   const { complaint } = props;
   // TODO: Write parsing function that deals with Complaintant info incase it is undefined.
+
   return (
     <>
       {!complaint ? (
@@ -19,8 +21,7 @@ export const ComplaintRow = (props) => {
           </td>
           <td>
             <b className="tablesaw-cell-label">Complaintant</b>
-            {complaint.complaintEthnicity} {complaint.complaintGender},{' '}
-            {complaint.complaintAge} years old.
+            {parseComplaintantInfo(complaint)}
           </td>
           <td>
             <b className="tablesaw-cell-label">Reason For Interacting</b>

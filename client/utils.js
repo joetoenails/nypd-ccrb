@@ -54,6 +54,33 @@ export const getFadoTypes = (complaints) => {
   const types = {};
 };
 
+export const parseComplaintantInfo = ({
+  complaintEthnicity,
+  complaintGender,
+  complaintAge,
+}) => {
+  if (!complaintEthnicity && !complaintGender && !complaintAge)
+    return 'Unknown';
+  let str = '';
+  if (!complaintEthnicity || complaintEthnicity === 'Unknown') {
+    str += 'Unknown Ethnicity ';
+  } else {
+    str += complaintEthnicity + ' ';
+  }
+  if (!complaintGender) {
+    str += 'Unknown Gender. ';
+  } else {
+    str += complaintGender + '. ';
+  }
+
+  if (!complaintAge) {
+    str += 'Unknown Age';
+  } else {
+    str += `${complaintAge} years old.`;
+  }
+
+  return str;
+};
 export const data = {
   name: 'flare',
   children: [

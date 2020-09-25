@@ -37,7 +37,7 @@ export const Cop = (props) => {
       </h2>
       <h4>Ethnicity: {officer.ethnicity}</h4>
       <h4>Gender: {officer.gender === 'M' ? 'Male' : 'Female'}</h4>
-      <h4>Badge #: {officer.badge === '0' ? 'Unkn own' : officer.badge}</h4>
+      <h4>Badge #: {officer.badge === '0' ? 'Unknown' : officer.badge}</h4>
 
       <div>
         <ul>
@@ -45,8 +45,8 @@ export const Cop = (props) => {
             return (
               <div className="complaint-container">
                 <h4>
-                  Complaint Received:
-                  {groupedComplaints[group][0].monthReceived},
+                  Complaint Received:{' '}
+                  {groupedComplaints[group][0].monthReceived}/
                   {groupedComplaints[group][0].yearReceived}
                 </h4>
 

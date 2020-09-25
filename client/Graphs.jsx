@@ -7,7 +7,7 @@ import * as d3 from 'd3';
 
 export const Graphs = (props) => {
   const [dimensions, setDimensions] = useState({
-    width: window.innerWidth < 800 ? window.innerWidth - 100 : 800,
+    width: window.innerWidth < 800 ? window.innerWidth - 100 : 1000,
   });
   useEffect(() => {
     const handleResize = _.debounce(() => {
@@ -42,7 +42,8 @@ export const Graphs = (props) => {
     Hispanic: 'indigo',
     'American Indian': 'blue',
   };
-  const height = 10000;
+
+  const height = officers.length * 20;
 
   const yScale = d3
     .scaleLinear()
@@ -116,7 +117,7 @@ export const Graphs = (props) => {
                     y={yScale(idx)}
                     x={0}
                     width={complaintScale(officer.count)}
-                    height={1}
+                    height={15}
                     fill={colorKey[officer.ethnicity]}
                   >
                     <title>{`${officer.firstName} ${officer.lastName}`}</title>
