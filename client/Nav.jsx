@@ -6,14 +6,14 @@ import Navbar from 'react-bootstrap/Navbar';
 export const Navigation = (props) => {
   return (
     <Navbar
-      collapseOnSelect
+      collapseOnSelect={true}
       bg="primary"
       variant="dark"
       expand="lg"
       fixed="top"
     >
       <Navbar.Brand href="/">
-        <h1>NYPD-CCRB Visualized</h1>
+        <h2>NYPD-CCRB Visualized</h2>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
