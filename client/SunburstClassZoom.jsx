@@ -192,9 +192,7 @@ export class SunburstClassZoom extends React.Component {
 
   render() {
     console.log('props in SunburstClassZoom', this.props);
-    return this.props.isLoading ? (
-      <Loading />
-    ) : (
+    return (
       <div className="graph-container">
         <div ref={this.node}></div>
       </div>
