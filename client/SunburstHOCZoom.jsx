@@ -1,6 +1,8 @@
 import React from 'react';
 import { SunburstClassZoom } from './SunburstClassZoom';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 
 export class SunburstHOCZoom extends React.Component {
   constructor() {
@@ -11,6 +13,7 @@ export class SunburstHOCZoom extends React.Component {
       firstSlice: 'complaintEthnicity',
       secondSlice: 'complaintGender',
       thirdSlice: 'fadoType',
+      isLoading: false,
     };
   }
 
@@ -28,6 +31,7 @@ export class SunburstHOCZoom extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { firstSlice, secondSlice, thirdSlice } = this.state;
+    this.setState({ isLoading: true });
     axios
       .post('/api/burst', {
         firstSlice,
@@ -37,6 +41,7 @@ export class SunburstHOCZoom extends React.Component {
       .then((res) => {
         this.setState({
           complaintGraphData: res.data,
+          isLoading: false,
         });
       });
   };
@@ -99,7 +104,21 @@ export class SunburstHOCZoom extends React.Component {
               <option value="boardDisposition">Board Disposition</option>
             </select>
 
-            <button>make graph</button>
+            {this.state.isLoading ? (
+              <Button variant="primary" disabled>
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                  style={{ marginRight: '10px' }}
+                />
+                Loading
+              </Button>
+            ) : (
+              <Button type="submit"> Make Graph </Button>
+            )}
           </form>
 
           <SunburstClassZoom data={this.state.complaintGraphData} />
