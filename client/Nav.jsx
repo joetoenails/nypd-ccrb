@@ -13,7 +13,7 @@ export const Navigation = (props) => {
       fixed="top"
     >
       <Navbar.Brand href="/">
-        <h2>NYPD-CCRB Visualized</h2>
+        <h1 id="nav-title">NYPD-CCRB Visualized</h1>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">

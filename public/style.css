@@ -72,3 +72,9 @@ a {
 .form-button {
   margin-top: 14px;
 }
+
+@media (max-device-width: 640px) {
+  h1#nav-title {
+    font-size: 1.25rem;
+  }
+}
