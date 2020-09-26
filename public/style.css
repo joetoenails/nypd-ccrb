@@ -64,3 +64,11 @@ a {
 .app-body {
   margin-top: 100px;
 }
+
+.form-row {
+  align-items: center;
+}
+
+.form-button {
+  margin-top: 14px;
+}
