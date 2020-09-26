@@ -3,6 +3,9 @@ import { SunburstClassZoom } from './SunburstClassZoom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export class SunburstHOCZoom extends React.Component {
   constructor() {
@@ -63,64 +66,99 @@ export class SunburstHOCZoom extends React.Component {
           move further out.
         </p>
         <div>
-          <form onSubmit={this.handleSubmit}>
-            <select
-              value={this.state.firstSlice}
-              name="firstSlice"
-              onChange={this.handleChange}
-            >
-              <option value="complaintEthnicity">Complainant Ethnicity</option>
-              <option value="complaintGender">Complainant Gender</option>
-              <option value="fadoType">Complaint Category</option>
-              <option value="allegation">Specific Type</option>
-              <option value="contactReason">Contact Reason</option>
-              <option value="outcome">Outcome</option>
-              <option value="boardDisposition">Board Disposition</option>
-            </select>
-            <select
-              name="secondSlice"
-              value={this.state.secondSlice}
-              onChange={this.handleChange}
-            >
-              <option value="complaintEthnicity">Complainant Ethnicity</option>
-              <option value="complaintGender">Complainant Gender</option>
-              <option value="fadoType">Complaint Category</option>
-              <option value="allegation">Specific Type</option>
-              <option value="contactReason">Contact Reason</option>
-              <option value="outcome">Outcome</option>
-              <option value="boardDisposition">Board Disposition</option>
-            </select>
-            <select
-              value={this.state.thirdSlice}
-              name="thirdSlice"
-              onChange={this.handleChange}
-            >
-              <option value="complaintEthnicity">Complainant Ethnicity</option>
-              <option value="complaintGender">Complainant Gender</option>
-              <option value="fadoType">Complaint Category</option>
-              <option value="allegation">Specific Type</option>
-              <option value="contactReason">Contact Reason</option>
-              <option value="outcome">Outcome</option>
-              <option value="boardDisposition">Board Disposition</option>
-            </select>
-
-            {this.state.isLoading ? (
-              <Button variant="primary" disabled>
-                <Spinner
-                  as="span"
-                  animation="grow"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                  style={{ marginRight: '10px' }}
-                />
-                Loading
-              </Button>
-            ) : (
-              <Button type="submit"> Make Graph </Button>
-            )}
-          </form>
-
+          <Form onSubmit={this.handleSubmit}>
+            <Row className="form-row">
+              <Col md={3}>
+                <Form.Group controlId="firstSlice">
+                  <Form.Label>First Slice</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={this.state.firstSlice}
+                    name="firstSlice"
+                    onChange={this.handleChange}
+                  >
+                    <option value="complaintEthnicity">
+                      Complainant Ethnicity
+                    </option>
+                    <option value="complaintGender">Complainant Gender</option>
+                    <option value="fadoType">Complaint Category</option>
+                    <option value="allegation">Specific Type</option>
+                    <option value="contactReason">Contact Reason</option>
+                    <option value="outcome">Outcome</option>
+                    <option value="boardDisposition">Board Disposition</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+              <Col md={3}>
+                <Form.Group controlId="secondSlice">
+                  <Form.Label>Second Slice</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={this.state.secondSlice}
+                    name="secondSlice"
+                    onChange={this.handleChange}
+                  >
+                    <option value="complaintEthnicity">
+                      Complainant Ethnicity
+                    </option>
+                    <option value="complaintGender">Complainant Gender</option>
+                    <option value="fadoType">Complaint Category</option>
+                    <option value="allegation">Specific Type</option>
+                    <option value="contactReason">Contact Reason</option>
+                    <option value="outcome">Outcome</option>
+                    <option value="boardDisposition">Board Disposition</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+              <Col md={3}>
+                <Form.Group controlId="thirdSlice">
+                  <Form.Label>Third Slice</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={this.state.thirdSlice}
+                    name="thirdSlice"
+                    onChange={this.handleChange}
+                  >
+                    <option value="complaintEthnicity">
+                      Complainant Ethnicity
+                    </option>
+                    <option value="complaintGender">Complainant Gender</option>
+                    <option value="fadoType">Complaint Category</option>
+                    <option value="allegation">Specific Type</option>
+                    <option value="contactReason">Contact Reason</option>
+                    <option value="outcome">Outcome</option>
+                    <option value="boardDisposition">Board Disposition</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+              <Col md={3}>
+                {this.state.isLoading ? (
+                  <Button
+                    className="form-button"
+                    variant="primary"
+                    block
+                    disabled
+                  >
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      style={{ marginRight: '10px' }}
+                    />
+                    Loading
+                  </Button>
+                ) : (
+                  <Button
+                    className="form-button"
+                    type="submit"
+                    block
+                  >{`Make \n Graph`}</Button>
+                )}
+              </Col>
+            </Row>
+          </Form>
           <SunburstClassZoom data={this.state.complaintGraphData} />
         </div>
       </div>

@@ -5,13 +5,8 @@ import { Cops } from './Cops';
 import { Cop } from './Cop';
 import { Home } from './Home';
 import { Graphs } from './Graphs';
-
-import { Sunburst } from './Sunburst';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
-import { compileComplaints } from './utils';
-import { SunburstClass } from './SunburstClass';
-import { ZoomSunburstClass } from './ZoomSunburstClass';
 import { SunburstHOC } from './SunburstHOC';
 import { SunburstHOCZoom } from './SunburstHOCZoom';
 import Container from 'react-bootstrap/Container';
@@ -87,17 +82,6 @@ const App = (props) => {
               setSortType={setSortType}
             />
           </Route>
-          <Route path="/piezoom">
-            <ZoomSunburstClass
-              officers={officers}
-              setFilter={setFilter}
-              filter={filter}
-              ethnicities={ethnicities}
-              setOfficers={setOfficers}
-              setSortType={setSortType}
-            />
-          </Route>
-
           <Route path="/graphs">
             <Graphs
               officers={officers}
@@ -108,7 +92,6 @@ const App = (props) => {
               setSortType={setSortType}
             />
           </Route>
-
           <Route path="/squares">
             <Cops
               officers={officers}

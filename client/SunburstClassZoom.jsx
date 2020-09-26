@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
-import { Loading } from './Loading';
 
 // import { data } from './utils';
 import data from '../ethincity.json';
