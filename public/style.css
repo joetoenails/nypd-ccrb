@@ -73,6 +73,10 @@ a {
   margin-top: 14px;
 }
 
+form.sunburst-form {
+  margin-bottom: 2rem;
+}
+
 @media (max-device-width: 640px) {
   h1#nav-title {
     font-size: 1.25rem;

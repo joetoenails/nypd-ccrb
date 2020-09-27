@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import _ from 'lodash';
+import { SunburstHOC } from './SunburstHOC';
 
 // import { data } from './utils';
-import data from '../ethincity.json';
+import data from '../../ethincity.json';
 import * as d3 from 'd3';
 
-export class SunburstClass extends React.Component {
+export class Sunburst extends React.Component {
   constructor() {
     super();
     this.createChart = this.createChart.bind(this);
@@ -90,7 +91,7 @@ export class SunburstClass extends React.Component {
           .ancestors()
           .map((d) => d.data.name)
           .reverse()
-          .join('/')}\n${format(d.value)}`
+          .join('/')}\n${format(d.value)} Allegations`
     );
 
     svg
@@ -121,9 +122,9 @@ export class SunburstClass extends React.Component {
       //   console.log(n);
       //   return `http://wwwcom`;
       // })
-      .text((d) => d.data.name)
-      .attr('textLength', '90')
-      .attr('lengthAdjust', 'spacing');
+      .text((d) => d.data.name);
+    // .attr('textLength', '90')
+    // .attr('lengthAdjust', 'spacing');
 
     const graph = svg.attr('viewBox', autoBox).node();
     if (this.node.current.children.length) {
@@ -136,8 +137,16 @@ export class SunburstClass extends React.Component {
     console.log('props in SunburstClass', this.props);
     return (
       <div>
+        <p>
+          To get a better feel for the information contained in the CCRB
+          database, explore different combinations of criteria to make a pie
+          chart below. Hover on each piece of the pie to get more detail on that
+          particular slice.
+        </p>
         <div ref={this.node}></div>
       </div>
     );
   }
 }
+
+export const SunburstWrapper = SunburstHOC(Sunburst);
