@@ -48,7 +48,10 @@ export const Cop = (props) => {
                 {groupedComplaints[group][0].yearReceived}
               </h4>
 
-              <table className="tablesaw" data-tablesaw-mode="stack">
+              <table
+                className="tablesaw table-hover"
+                data-tablesaw-mode="stack"
+              >
                 <thead>
                   <tr>
                     <th scope="col">Allegation</th>
