@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import _ from 'lodash';
+import { SunburstHOC } from './SunburstHOC';
 
 // import { data } from './utils';
-import data from '../ethincity.json';
+import data from '../../ethincity.json';
 import * as d3 from 'd3';
 
-export class SunburstClassZoom extends React.Component {
+export class SunburstZoom extends React.Component {
   constructor() {
     super();
     this.createChart = this.createChart.bind(this);
@@ -192,9 +193,21 @@ export class SunburstClassZoom extends React.Component {
   render() {
     console.log('props in SunburstClassZoom', this.props);
     return (
-      <div className="graph-container">
-        <div ref={this.node}></div>
-      </div>
+      <>
+        <p>
+          To get a better feel for the information contained in the CCRB
+          database, explore different combinations of criteria to make a
+          zoomable pie chart below. Hover on each piece of the pie to get more
+          detail on that particular slice or click on a slice to go deeper into
+          the statistics of that slice. Click the middle of the circle to go
+          back to the previous level.
+        </p>
+        <div className="graph-container">
+          <div ref={this.node}></div>
+        </div>
+      </>
     );
   }
 }
+
+export const SunburstZoomWrapper = SunburstHOC(SunburstZoom);

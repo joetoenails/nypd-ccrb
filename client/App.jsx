@@ -7,8 +7,9 @@ import { Home } from './Home';
 import { Graphs } from './Graphs';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
-import { SunburstHOC } from './SunburstHOC';
-import { SunburstHOCZoom } from './SunburstHOCZoom';
+
+import { SunburstZoomWrapper } from './Sunburst/SunburstZoom';
+import { SunburstWrapper } from './Sunburst/Sunburst';
 import Container from 'react-bootstrap/Container';
 
 const App = (props) => {
@@ -63,7 +64,7 @@ const App = (props) => {
             <Cop officers={officers} />
           </Route>
           <Route path="/piezoom">
-            <SunburstHOCZoom
+            <SunburstZoomWrapper
               officers={officers}
               setFilter={setFilter}
               filter={filter}
@@ -73,7 +74,7 @@ const App = (props) => {
             />
           </Route>
           <Route path="/pie">
-            <SunburstHOC
+            <SunburstWrapper
               officers={officers}
               setFilter={setFilter}
               filter={filter}

@@ -62,14 +62,14 @@ const path = require('path');
 //   },
 // };
 
-function build(result, c, layers) {
+function build(result, complaint, layers) {
   let currentObjectPlace = result;
 
   for (let i = 0; i < layers.length; i++) {
-    if (c[layers[i]] === '') {
-      c[layers[i]] = `Unknown ${layers[i]}`;
+    if (complaint[layers[i]] === '') {
+      complaint[layers[i]] = `Unknown ${layers[i]}`;
     }
-    const curComplaintAttr = c[layers[i]];
+    const curComplaintAttr = complaint[layers[i]];
 
     let categoryObject = currentObjectPlace.children.find(
       (category) => category.name === curComplaintAttr
@@ -82,7 +82,6 @@ function build(result, c, layers) {
       currentObjectPlace.children.push(categoryObject);
     }
     if (i === layers.length - 1) {
-      // categoryObject.children.push(c);
       if (categoryObject.value) {
         categoryObject.value++;
       } else {

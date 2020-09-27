@@ -83,7 +83,7 @@ router.post('/burst', async (req, res, next) => {
       arrOfSlices.push(slices[slice]);
     }
   }
-  const tree = { name: 'flare', children: [] };
+  const tree = { name: 'Data', children: [] };
   const complaints = await Complaint.findAll({ raw: true });
   complaints.forEach((c) => {
     build(tree, c, arrOfSlices);
