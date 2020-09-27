@@ -40,41 +40,38 @@ export const Cop = (props) => {
       <h4>Badge #: {officer.badge === '0' ? 'Unknown' : officer.badge}</h4>
 
       <div>
-        <ul>
-          {Object.keys(groupedComplaints).map((group) => {
-            return (
-              <div className="complaint-container">
-                <h4>
-                  Complaint Received:{' '}
-                  {groupedComplaints[group][0].monthReceived}/
-                  {groupedComplaints[group][0].yearReceived}
-                </h4>
+        {Object.keys(groupedComplaints).map((group) => {
+          return (
+            <div className="complaint-container">
+              <h4>
+                Complaint Received: {groupedComplaints[group][0].monthReceived}/
+                {groupedComplaints[group][0].yearReceived}
+              </h4>
 
-                <table className="tablesaw" data-tablesaw-mode="stack">
-                  <thead>
-                    <tr>
-                      <th scope="col">Allegation</th>
-                      <th scope="col" data-tablesaw-priority="4">
-                        Officer Rank
-                      </th>
-                      <th scope="col" data-tablesaw-priority="4">
-                        Complaintant
-                      </th>
-                      <th scope="col">Reason for Interaction</th>
+              <table className="tablesaw" data-tablesaw-mode="stack">
+                <thead>
+                  <tr>
+                    <th scope="col">Allegation</th>
+                    <th scope="col" data-tablesaw-priority="4">
+                      Officer Rank
+                    </th>
+                    <th scope="col" data-tablesaw-priority="4">
+                      Complaintant
+                    </th>
+                    <th scope="col">Reason for Interaction</th>
 
-                      <th scope="col">Board Outcome</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {groupedComplaints[group].map((complaint) => {
-                      return <ComplaintRow complaint={complaint} />;
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            );
-          })}
-        </ul>
+                    <th scope="col">Board Outcome</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {groupedComplaints[group].map((complaint) => {
+                    return <ComplaintRow complaint={complaint} />;
+                  })}
+                </tbody>
+              </table>
+            </div>
+          );
+        })}
       </div>
     </>
   );
