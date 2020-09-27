@@ -118,7 +118,7 @@ export const SunburstHOC = (SunburstComponent) => {
                     <Form.Control
                       as="select"
                       value={this.state.slice3}
-                      name="thirdSlice"
+                      name="slice3"
                       onChange={this.handleChange}
                     >
                       <option value="complaintEthnicity">
