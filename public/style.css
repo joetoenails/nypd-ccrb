@@ -77,6 +77,10 @@ form.sunburst-form {
   margin-bottom: 2rem;
 }
 
+b.tablesaw-cell-label {
+  width: 100% !important;
+}
+
 @media (max-device-width: 640px) {
   h1#nav-title {
     font-size: 1.25rem;
