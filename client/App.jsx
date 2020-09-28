@@ -53,8 +53,8 @@ const App = (props) => {
     };
     setOfficers(sortOfficers(sortType));
   }, [sortType]);
-  console.log('eth', ethnicities);
-  console.log('cop', officers);
+  // console.log('eth', ethnicities);
+  // console.log('cop', officers);
   return (
     <Router>
       <Navigation />

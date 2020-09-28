@@ -79,11 +79,12 @@ router.post('/burst', async (req, res, next) => {
   const slices = req.body;
   const arrOfSlices = [];
   for (const slice in slices) {
-    if (slices[slice]) {
+    if (slices[slice] && !arrOfSlices.includes(slices[slice])) {
       arrOfSlices.push(slices[slice]);
     }
   }
-  const tree = { name: 'Data', children: [] };
+  arrOfSlices.push(arrOfSlices[arrOfSlices.length - 1]);
+  const tree = { name: 'All Allegations', children: [] };
   const complaints = await Complaint.findAll({ raw: true });
   complaints.forEach((c) => {
     build(tree, c, arrOfSlices);

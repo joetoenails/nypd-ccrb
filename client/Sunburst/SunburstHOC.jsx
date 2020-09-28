@@ -53,9 +53,17 @@ export const SunburstHOC = (SunburstComponent) => {
       console.log(e.target.name, e.target.value);
       this.setState({ [e.target.name]: e.target.value });
     };
-    isDisabled = (e) => {
-      return true;
+    isDisabled = (currentSlice, value) => {
+      switch (currentSlice) {
+        case 'slice1':
+          return this.state.slice2 === value || this.state.slice3 === value;
+        case 'slice2':
+          return this.state.slice3 === value || this.state.slice1 === value;
+        case 'slice3':
+          return this.state.slice1 === value || this.state.slice2 === value;
+      }
     };
+
     render() {
       return (
         <div>
@@ -71,7 +79,13 @@ export const SunburstHOC = (SunburstComponent) => {
                       name="slice1"
                       onChange={this.handleChange}
                     >
-                      <option value="complaintEthnicity">
+                      <option
+                        disabled={this.isDisabled(
+                          'slice1',
+                          'complaintEthnicity'
+                        )}
+                        value="complaintEthnicity"
+                      >
                         Complainant Ethnicity
                       </option>
                       <option value="complaintGender">

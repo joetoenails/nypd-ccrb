@@ -9,6 +9,9 @@ import * as d3 from 'd3';
 export class SunburstZoom extends React.Component {
   constructor() {
     super();
+    this.state = {
+      currentView: '',
+    };
     this.createChart = this.createChart.bind(this);
     this.getUrl = this.getUrl.bind(this);
     this.node = React.createRef();
@@ -16,14 +19,18 @@ export class SunburstZoom extends React.Component {
 
   componentDidMount() {
     console.log('component did mount');
+    // this.createChart(this.trySet);
   }
 
   componentDidUpdate({ data }) {
     if (data !== this.props.data) {
-      this.createChart();
+      this.createChart(this.trySet);
       console.log('component did update');
     }
   }
+  trySet = (currentView) => {
+    this.setState({ currentView });
+  };
   getUrl(obj) {
     const names = [];
     let travel = obj;
@@ -36,7 +43,8 @@ export class SunburstZoom extends React.Component {
     // or against a call to
     console.log(names.join());
   }
-  createChart() {
+  createChart(setState) {
+    setState('All Allegations');
     const width = 975;
     const radius = width / 6;
     const partition = (data) => {
@@ -82,7 +90,7 @@ export class SunburstZoom extends React.Component {
         return color(d.data.name);
       })
       .attr('fill-opacity', (d) =>
-        arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0
+        arcVisible(d.current) ? (d.children ? 0.7 : 0.3) : 0
       )
       .attr('d', (d) => arc(d.current));
 
@@ -102,7 +110,7 @@ export class SunburstZoom extends React.Component {
 
     const label = g
       .append('g')
-      .attr('pointer-events', 'none')
+      .attr('pointer-events', 'none') // activate pointer events here
       .attr('text-anchor', 'middle')
       .style('user-select', 'none')
       .selectAll('text')
@@ -112,7 +120,8 @@ export class SunburstZoom extends React.Component {
       .attr('fill-opacity', (d) => +labelVisible(d.current))
       .attr('transform', (d) => labelTransform(d.current))
       .attr('font-size', '1.5em')
-      .text((d) => d.data.name);
+      .text((d) => d.data.name)
+      .on('click', () => console.log('clicked23')); // can get the last piece of viewing if user clicks title
 
     const parent = g
       .append('circle')
@@ -123,8 +132,17 @@ export class SunburstZoom extends React.Component {
       .on('click', clicked);
 
     function clicked(event, p) {
-      parent.datum(p.parent || root);
+      console.log('clickeddd!');
+      setState(
+        `${p
+          .ancestors()
+          .map((d) => d.data.name)
+          .reverse()
+          .join('/')}`
+      );
 
+      parent.datum(p.parent || root);
+      console.log('parent', parent);
       root.each(
         (d) =>
           (d.target = {
@@ -192,6 +210,7 @@ export class SunburstZoom extends React.Component {
 
   render() {
     console.log('props in SunburstClassZoom', this.props);
+    console.log('state in SunburstClassZoom', this.state);
     return (
       <>
         <p>
@@ -202,6 +221,7 @@ export class SunburstZoom extends React.Component {
           the statistics of that slice. Click the middle of the circle to go
           back to the previous level.
         </p>
+        <p>Current view: {this.state.currentView}</p>
         <div className="graph-container">
           <div ref={this.node}></div>
         </div>

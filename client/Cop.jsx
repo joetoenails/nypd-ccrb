@@ -17,7 +17,6 @@ export const Cop = (props) => {
   const [complaints, setComplaints] = useState([]);
   useEffect(() => {
     axios.get(`/api/complaints?officer=${id}`).then(({ data }) => {
-      console.log('complaints', data);
       setComplaints(data);
     });
   }, []);
@@ -42,7 +41,7 @@ export const Cop = (props) => {
       <div>
         {Object.keys(groupedComplaints).map((group) => {
           return (
-            <div className="complaint-container">
+            <div key={group} className="complaint-container">
               <h4>
                 Complaint Received: {groupedComplaints[group][0].monthReceived}/
                 {groupedComplaints[group][0].yearReceived}
@@ -68,7 +67,9 @@ export const Cop = (props) => {
                 </thead>
                 <tbody>
                   {groupedComplaints[group].map((complaint) => {
-                    return <ComplaintRow complaint={complaint} />;
+                    return (
+                      <ComplaintRow key={complaint.id} complaint={complaint} />
+                    );
                   })}
                 </tbody>
               </table>
