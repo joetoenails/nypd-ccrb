@@ -6,6 +6,20 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+const options = [
+  { value: 'complaintEthnicity', description: 'Complainant Ethnicity' },
+  { value: 'complaintGender', description: 'Complainant Gender' },
+  { value: 'complaintAge', description: 'Complainant Age' },
+  { value: 'fadoType', description: 'Complaint Category' },
+  { value: 'allegation', description: 'Specific Allegation' },
+  { value: 'precinct', description: 'Officer Precinct' },
+  { value: 'officerAge', description: 'Officer Age at incident' },
+  { value: 'officerCommand', description: 'Officer Command' },
+  { value: 'contactReason', description: 'Reason for Police Contact' },
+  { value: 'outcome', description: 'Outcome of Police Interaction' },
+  { value: 'boardDisposition', description: 'CCRB Board Disposition' },
+];
+
 export const SunburstHOC = (SunburstComponent) => {
   return class SunburstForm extends React.Component {
     constructor() {
@@ -79,7 +93,7 @@ export const SunburstHOC = (SunburstComponent) => {
                       name="slice1"
                       onChange={this.handleChange}
                     >
-                      <option
+                      {/* <option
                         disabled={this.isDisabled(
                           'slice1',
                           'complaintEthnicity'
@@ -87,17 +101,12 @@ export const SunburstHOC = (SunburstComponent) => {
                         value="complaintEthnicity"
                       >
                         Complainant Ethnicity
-                      </option>
-                      <option value="complaintGender">
-                        Complainant Gender
-                      </option>
-                      <option value="fadoType">Complaint Category</option>
-                      <option value="allegation">Specific Type</option>
-                      <option value="contactReason">Contact Reason</option>
-                      <option value="outcome">Outcome</option>
-                      <option value="boardDisposition">
-                        Board Disposition
-                      </option>
+                      </option> */}
+                      {options.map((o) => (
+                        <option key={o.value} value={o.value}>
+                          {o.description}
+                        </option>
+                      ))}
                     </Form.Control>
                   </Form.Group>
                 </Col>
@@ -110,19 +119,11 @@ export const SunburstHOC = (SunburstComponent) => {
                       name="slice2"
                       onChange={this.handleChange}
                     >
-                      <option value="complaintEthnicity">
-                        Complainant Ethnicity
-                      </option>
-                      <option value="complaintGender">
-                        Complainant Gender
-                      </option>
-                      <option value="fadoType">Complaint Category</option>
-                      <option value="allegation">Specific Type</option>
-                      <option value="contactReason">Contact Reason</option>
-                      <option value="outcome">Outcome</option>
-                      <option value="boardDisposition">
-                        Board Disposition
-                      </option>
+                      {options.map((o) => (
+                        <option key={o.value} value={o.value}>
+                          {o.description}
+                        </option>
+                      ))}
                     </Form.Control>
                   </Form.Group>
                 </Col>
@@ -135,19 +136,11 @@ export const SunburstHOC = (SunburstComponent) => {
                       name="slice3"
                       onChange={this.handleChange}
                     >
-                      <option value="complaintEthnicity">
-                        Complainant Ethnicity
-                      </option>
-                      <option value="complaintGender">
-                        Complainant Gender
-                      </option>
-                      <option value="fadoType">Complaint Category</option>
-                      <option value="allegation">Specific Type</option>
-                      <option value="contactReason">Contact Reason</option>
-                      <option value="outcome">Outcome</option>
-                      <option value="boardDisposition">
-                        Board Disposition
-                      </option>
+                      {options.map((o) => (
+                        <option key={o.value} value={o.value}>
+                          {o.description}
+                        </option>
+                      ))}
                     </Form.Control>
                   </Form.Group>
                 </Col>
