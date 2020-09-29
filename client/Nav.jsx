@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { LinkContainer } from 'react-router-bootstrap';
 
 export const Navigation = (props) => {
   return (
@@ -19,24 +20,32 @@ export const Navigation = (props) => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav activeKey="/home">
           <Nav.Item>
-            <Nav.Link as={Link} to="/squares">
-              <h3>Squares</h3>
-            </Nav.Link>
+            <LinkContainer to="/squares">
+              <Nav.Link>
+                <h3>Squares</h3>
+              </Nav.Link>
+            </LinkContainer>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link as={Link} to="/graphs">
-              <h3>Graphs</h3>
-            </Nav.Link>
+            <LinkContainer to="/graphs">
+              <Nav.Link>
+                <h3>Graphs</h3>
+              </Nav.Link>
+            </LinkContainer>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link as={Link} to="/pie">
-              <h3>Pie</h3>
-            </Nav.Link>
+            <LinkContainer to="/pie">
+              <Nav.Link>
+                <h3>Pie</h3>
+              </Nav.Link>
+            </LinkContainer>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link as={Link} to="/piezoom">
-              <h3>Piezoom</h3>
-            </Nav.Link>
+            <LinkContainer to="/piezoom">
+              <Nav.Link>
+                <h3>Piezoom</h3>
+              </Nav.Link>
+            </LinkContainer>
           </Nav.Item>
         </Nav>
       </Navbar.Collapse>
