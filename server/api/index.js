@@ -83,7 +83,8 @@ router.post('/burst', async (req, res, next) => {
       arrOfSlices.push(slices[slice]);
     }
   }
-  arrOfSlices.push(arrOfSlices[arrOfSlices.length - 1]);
+  if (req.query.type === 'zoom')
+    arrOfSlices.push(arrOfSlices[arrOfSlices.length - 1]);
   const tree = { name: 'All Allegations', children: [] };
   const complaints = await Complaint.findAll({ raw: true });
   complaints.forEach((c) => {

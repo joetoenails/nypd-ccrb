@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const options = [
+const dropdownOptions = [
   { value: 'complaintEthnicity', description: 'Complainant Ethnicity' },
   { value: 'complaintGender', description: 'Complainant Gender' },
   { value: 'complaintAge', description: 'Complainant Age' },
@@ -21,7 +21,7 @@ const options = [
   { value: 'boardDisposition', description: 'CCRB Board Disposition' },
 ];
 
-export const SunburstHOC = (SunburstComponent) => {
+export const SunburstHOC = (SunburstComponent, options) => {
   return class SunburstForm extends React.Component {
     constructor() {
       super();
@@ -51,7 +51,7 @@ export const SunburstHOC = (SunburstComponent) => {
       const { slice1, slice2, slice3 } = this.state;
       this.setState({ isLoading: true });
       axios
-        .post('/api/burst', {
+        .post(`/api/burst?type=${options.type}`, {
           slice1,
           slice2,
           slice3,
@@ -103,7 +103,7 @@ export const SunburstHOC = (SunburstComponent) => {
                       >
                         Complainant Ethnicity
                       </option> */}
-                      {options.map((o) => (
+                      {dropdownOptions.map((o) => (
                         <option key={o.value} value={o.value}>
                           {o.description}
                         </option>
@@ -120,7 +120,7 @@ export const SunburstHOC = (SunburstComponent) => {
                       name="slice2"
                       onChange={this.handleChange}
                     >
-                      {options.map((o) => (
+                      {dropdownOptions.map((o) => (
                         <option key={o.value} value={o.value}>
                           {o.description}
                         </option>
@@ -137,7 +137,7 @@ export const SunburstHOC = (SunburstComponent) => {
                       name="slice3"
                       onChange={this.handleChange}
                     >
-                      {options.map((o) => (
+                      {dropdownOptions.map((o) => (
                         <option key={o.value} value={o.value}>
                           {o.description}
                         </option>

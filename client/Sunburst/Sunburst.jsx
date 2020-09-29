@@ -149,4 +149,4 @@ export class Sunburst extends React.Component {
   }
 }
 
-export const SunburstWrapper = SunburstHOC(Sunburst);
+export const SunburstWrapper = SunburstHOC(Sunburst, { type: 'default' });

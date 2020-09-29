@@ -42,6 +42,7 @@ export const Cop = (props) => {
         {Object.keys(groupedComplaints).map((group) => {
           return (
             <div key={group} className="complaint-container">
+              <h4>Complaint #: {group}</h4>
               <h4>
                 Complaint Received: {groupedComplaints[group][0].monthReceived}/
                 {groupedComplaints[group][0].yearReceived}

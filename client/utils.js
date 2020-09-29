@@ -7,15 +7,14 @@ export const toggleFilter = (category, type, state, stateSet) => {
 };
 
 export const compileComplaints = (complaints) => {
-  const complaintsById = {};
-  complaints.forEach((complaint) => {
-    if (complaint.complaintId in complaintsById) {
-      complaintsById[complaint.complaintId].push(complaint);
+  return complaints.reduce((allComplaints, complaint) => {
+    if (complaint.complaintId in allComplaints) {
+      allComplaints[complaint.complaintId].push(complaint);
     } else {
-      complaintsById[complaint.complaintId] = [complaint];
+      allComplaints[complaint.complaintId] = [complaint];
     }
-  });
-  return complaintsById;
+    return allComplaints;
+  }, {});
 };
 
 export const createRandomColorKeyObj = () => {

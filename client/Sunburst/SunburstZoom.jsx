@@ -230,4 +230,4 @@ export class SunburstZoom extends React.Component {
   }
 }
 
-export const SunburstZoomWrapper = SunburstHOC(SunburstZoom);
+export const SunburstZoomWrapper = SunburstHOC(SunburstZoom, { type: 'zoom' });
