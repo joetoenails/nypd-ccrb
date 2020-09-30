@@ -135,7 +135,7 @@ export const Bars = (props) => {
                     height={15}
                     fill={colorKey[officer.ethnicity]}
                   >
-                    <title>{`${officer.firstName} ${officer.lastName}`}</title>
+                    <title>{`${officer.lastName}, ${officer.firstName} | ${officer.ethnicity} \nTotal Allegations: ${officer.count}`}</title>
                   </rect>
                 </Link>
               );

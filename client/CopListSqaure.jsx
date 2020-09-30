@@ -12,8 +12,7 @@ export const CopListSquare = ({ officer }) => {
         key={officer.mosId}
         className="officer-list-square"
         style={colors}
-        title={`${officer.lastName}, ${officer.firstName}\nTotal allegations: ${officer.count}
-        `}
+        title={`${officer.lastName}, ${officer.firstName} | ${officer.ethnicity}\nTotal allegations: ${officer.count}`}
       ></div>
     </Link>
   );
