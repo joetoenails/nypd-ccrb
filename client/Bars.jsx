@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 import * as d3 from 'd3';
 
-export const Graphs = (props) => {
+export const Bars = (props) => {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth < 800 ? window.innerWidth - 100 : 1000,
   });
@@ -59,6 +59,19 @@ export const Graphs = (props) => {
 
   return officers.length ? (
     <div>
+      <h1>Bars</h1>
+      <p>
+        Bars has the same idea as Squares: to encourage the user to actively
+        peruse the data. This time each bar represents an NYPD Officer and all
+        3396 officers appear on the screen at the same time. Second, the length
+        of the bar represents how many allegations each officer has filed
+        against them in the CCRB database: the longer the bar, the more
+        allegations. Third, you can sort by the amount of complaints or by last
+        name and can filter by the ethnicity of the officer. By giving the user
+        a graphical interface to view all of the data with visual clues about
+        key data points, they are invited to peruse the data and maybe look at
+        records they might have never looked at before.
+      </p>
       <div>Filter By Officer Ethnicity (choose 1)</div>
       {ethnicityKeys.map((ethnicity) => (
         <FilterButton

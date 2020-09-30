@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const dropdownOptions = [
+  { value: '', description: 'Choose Layer' },
   { value: 'complaintEthnicity', description: 'Complainant Ethnicity' },
   { value: 'complaintGender', description: 'Complainant Gender' },
   { value: 'complaintAge', description: 'Complainant Age' },
@@ -28,9 +29,9 @@ export const SunburstHOC = (SunburstComponent, options) => {
       this.state = {
         graphAttr: [],
         complaintGraphData: [],
-        slice1: 'complaintEthnicity',
-        slice2: 'complaintGender',
-        slice3: 'fadoType',
+        slice1: '',
+        slice2: '',
+        slice3: '',
         isLoading: false,
       };
     }
@@ -87,7 +88,7 @@ export const SunburstHOC = (SunburstComponent, options) => {
               <Row className="form-row">
                 <Col md={3}>
                   <Form.Group controlId="slice1">
-                    <Form.Label>First Slice</Form.Label>
+                    <Form.Label>First Layer</Form.Label>
                     <Form.Control
                       as="select"
                       value={this.state.slice1}
@@ -113,7 +114,7 @@ export const SunburstHOC = (SunburstComponent, options) => {
                 </Col>
                 <Col md={3}>
                   <Form.Group controlId="slice2">
-                    <Form.Label>Second Slice</Form.Label>
+                    <Form.Label>Second Layer</Form.Label>
                     <Form.Control
                       as="select"
                       value={this.state.slice2}
@@ -130,7 +131,7 @@ export const SunburstHOC = (SunburstComponent, options) => {
                 </Col>
                 <Col md={3}>
                   <Form.Group controlId="slice3">
-                    <Form.Label>Third Slice</Form.Label>
+                    <Form.Label>Third Layer</Form.Label>
                     <Form.Control
                       as="select"
                       value={this.state.slice3}

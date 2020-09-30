@@ -27,9 +27,9 @@ export const Navigation = (props) => {
             </LinkContainer>
           </Nav.Item>
           <Nav.Item>
-            <LinkContainer to="/graphs">
+            <LinkContainer to="/bars">
               <Nav.Link>
-                <h3>Graphs</h3>
+                <h3>Bars</h3>
               </Nav.Link>
             </LinkContainer>
           </Nav.Item>

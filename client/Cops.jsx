@@ -1,5 +1,4 @@
 import React from 'react';
-import { CopListItem } from './CopListItem';
 import { CopListSquare } from './CopListSqaure';
 import { FilterButton } from './FilterButton';
 import { Loading } from './Loading';
@@ -23,6 +22,25 @@ export const Cops = (props) => {
   };
   return officers.length ? (
     <div>
+      <h1>Squares</h1>
+      <p>
+        The idea behind squares is encourage the user to actively peruse the
+        data. Often when confronted with a big set of data the user is presented
+        with a lonely search bar and they have to figure out what kind of search
+        queries will work, or what they are actually looking for. Squares aims
+        to take away the search bar and instead present all officers at once and
+        breaks down the information about each officer in a couple of ways.
+        First, each square represents an NYPD Officer and all 3396 officers
+        appear on the screen at the same time. Second, the shade of blue
+        represents how many allegations each officer has filed against them in
+        the CCRB database: the darker the square, the more allegations. Third,
+        you can filter the officer squares in view by the officer's ethnicity
+        and can sort them by last name or by the amount of allegations against
+        them. by the ethnicity of the officer. By giving the user a graphical
+        interface to view all of the data with visual clues about key data
+        points, they are invited to peruse the data and maybe look at records
+        they might have never looked at before.
+      </p>
       <div>Filter By Officer Ethnicity (choose 1)</div>
       {ethnicityKeys.map((ethnicity) => (
         <FilterButton

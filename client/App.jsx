@@ -4,7 +4,7 @@ import { Navigation } from './Nav';
 import { Cops } from './Cops';
 import { Cop } from './Cop';
 import { Home } from './Home';
-import { Graphs } from './Graphs';
+import { Bars } from './Bars';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 
@@ -83,8 +83,8 @@ const App = (props) => {
               setSortType={setSortType}
             />
           </Route>
-          <Route path="/graphs">
-            <Graphs
+          <Route path="/bars">
+            <Bars
               officers={officers}
               setFilter={setFilter}
               filter={filter}
