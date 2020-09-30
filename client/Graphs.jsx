@@ -3,6 +3,8 @@ import _ from 'lodash';
 import { FilterButton } from './FilterButton';
 import { Link } from 'react-router-dom';
 import { Loading } from './Loading';
+import Button from 'react-bootstrap/Button';
+
 import * as d3 from 'd3';
 
 export const Graphs = (props) => {
@@ -79,20 +81,20 @@ export const Graphs = (props) => {
       <div>
         Sort by:
         <div>
-          <button
+          <Button
             className="sort-button"
             type="button"
             onClick={() => setSortType('complaints')}
           >
             Amount of Complaints
-          </button>
-          <button
+          </Button>
+          <Button
             className="sort-button"
             type="button"
             onClick={() => setSortType('lastName')}
           >
             Last Name
-          </button>
+          </Button>
         </div>
       </div>
 

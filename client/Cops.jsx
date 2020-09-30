@@ -3,6 +3,7 @@ import { CopListItem } from './CopListItem';
 import { CopListSquare } from './CopListSqaure';
 import { FilterButton } from './FilterButton';
 import { Loading } from './Loading';
+import Button from 'react-bootstrap/Button';
 
 export const Cops = (props) => {
   const { officers, filter, setFilter, ethnicities, setSortType } = props;
@@ -44,20 +45,20 @@ export const Cops = (props) => {
       <div>
         Sort by:
         <div>
-          <button
+          <Button
             className="sort-button"
             type="button"
             onClick={() => setSortType('complaints')}
           >
             Amount of Complaints
-          </button>
-          <button
+          </Button>
+          <Button
             className="sort-button"
             type="button"
             onClick={() => setSortType('lastName')}
           >
             Last Name
-          </button>
+          </Button>
         </div>
       </div>
 
