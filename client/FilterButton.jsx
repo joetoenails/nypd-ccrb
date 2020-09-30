@@ -1,5 +1,6 @@
 import React from 'react';
 import { toggleFilter } from './utils';
+import Button from 'react-bootstrap/Button';
 
 export const FilterButton = ({
   ethnicity,
@@ -20,7 +21,7 @@ export const FilterButton = ({
   };
 
   return (
-    <button
+    <Button
       className="filter-button"
       id={`button-${ethnicity}`}
       key={ethnicity}
@@ -29,6 +30,6 @@ export const FilterButton = ({
       style={filter.ethnicity === ethnicity ? activeButton : inactiveButton}
     >
       {ethnicity} ({count})
-    </button>
+    </Button>
   );
 };
