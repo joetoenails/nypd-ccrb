@@ -1,52 +1,22 @@
 import React from 'react';
 import _ from 'lodash';
-import { SunburstHOC } from './SunburstHOC';
-import { SunburstZoomStaticData } from './SunburstZoomStaticData';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-// import { data } from './utils';
-import data from '../../ethincity.json';
+import axios from 'axios';
+
 import * as d3 from 'd3';
 
-export class SunburstZoom extends React.Component {
+export class SunburstZoomStaticData extends React.Component {
   constructor() {
     super();
-    this.state = {
-      currentView: '',
-    };
     this.createChart = this.createChart.bind(this);
-    this.getUrl = this.getUrl.bind(this);
     this.node = React.createRef();
   }
 
   componentDidMount() {
-    console.log('component did mount');
-    // this.createChart(this.trySet);
+    this.createChart(this.props.data);
   }
 
-  componentDidUpdate({ data }) {
-    if (data !== this.props.data) {
-      this.createChart(this.trySet);
-      console.log('component did update');
-    }
-  }
-  trySet = (currentView) => {
-    this.setState({ currentView });
-  };
-  getUrl(obj) {
-    const names = [];
-    let travel = obj;
-    while (travel.parent) {
-      names.push(travel.data.name);
-      travel = travel.parent;
-    }
-    //TODO: Need to figure how to get AJAX params from this and other data.
-    // probably need to get the 'analyze' function out of the server area and parse it against the csv
-    // or against a call to
-    console.log(names.join());
-  }
-  createChart(setState) {
-    setState('All Allegations');
+  createChart() {
+    if (!this.props.data.name) return;
     const width = 975;
     const radius = width / 6;
     const partition = (data) => {
@@ -58,7 +28,7 @@ export class SunburstZoom extends React.Component {
     };
 
     const color = d3.scaleOrdinal(
-      d3.quantize(d3.interpolateRainbow, data.children.length + 1)
+      d3.quantize(d3.interpolateRainbow, this.props.data.children.length + 1)
     );
     const format = d3.format(',d');
     const arc = d3
@@ -69,6 +39,7 @@ export class SunburstZoom extends React.Component {
       .padRadius(radius * 1.5)
       .innerRadius((d) => d.y0 * radius)
       .outerRadius((d) => Math.max(d.y0 * radius, d.y1 * radius - 1));
+
     const root = partition(this.props.data);
 
     root.each((d) => (d.current = d));
@@ -122,8 +93,8 @@ export class SunburstZoom extends React.Component {
       .attr('fill-opacity', (d) => +labelVisible(d.current))
       .attr('transform', (d) => labelTransform(d.current))
       .attr('font-size', '1.5em')
-      .text((d) => d.data.name)
-      .on('click', () => console.log('clicked23')); // can get the last piece of viewing if user clicks title
+      .text((d) => d.data.name);
+    // .on('click', () => console.log('clicked23')); // can get the last piece of viewing if user clicks title
 
     const parent = g
       .append('circle')
@@ -134,17 +105,8 @@ export class SunburstZoom extends React.Component {
       .on('click', clicked);
 
     function clicked(event, p) {
-      console.log('clickeddd!');
-      setState(
-        `${p
-          .ancestors()
-          .map((d) => d.data.name)
-          .reverse()
-          .join('/')}`
-      );
-
       parent.datum(p.parent || root);
-      console.log('parent', parent);
+      // console.log('parent', parent);
       root.each(
         (d) =>
           (d.target = {
@@ -211,20 +173,10 @@ export class SunburstZoom extends React.Component {
   }
 
   render() {
-    console.log('props in SunburstClassZoom', this.props);
-    console.log('state in SunburstClassZoom', this.state);
+    // console.log('props in SunburstClassZoom', this.props);
+    // console.log('state in SunburstClassZoom', this.state);
     return (
       <>
-        <p>
-          To get a better feel for the information contained in the CCRB
-          database, explore different combinations of criteria to make a
-          zoomable pie chart below. Hover on each piece of the pie to get more
-          detail on that particular slice or click on a slice to go deeper into
-          the statistics of that slice. Click the middle of the circle to go
-          back to the previous level.
-        </p>
-
-        <p>Current view: {this.state.currentView}</p>
         <div className="graph-container">
           <div ref={this.node}></div>
         </div>
@@ -232,5 +184,3 @@ export class SunburstZoom extends React.Component {
     );
   }
 }
-
-export const SunburstZoomWrapper = SunburstHOC(SunburstZoom, { type: 'zoom' });

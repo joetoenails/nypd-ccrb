@@ -5,6 +5,7 @@ import { Cops } from './Cops';
 import { Cop } from './Cop';
 import { Home } from './Home';
 import { Bars } from './Bars';
+import { Explore } from './Explore';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 
@@ -102,6 +103,9 @@ const App = (props) => {
               setOfficers={setOfficers}
               setSortType={setSortType}
             />
+          </Route>
+          <Route path="/explore">
+            <Explore />
           </Route>
           <Route exact path="/">
             <Home />
