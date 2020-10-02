@@ -86,7 +86,24 @@ router.post('/burst', async (req, res, next) => {
   if (req.query.type === 'zoom')
     arrOfSlices.push(arrOfSlices[arrOfSlices.length - 1]);
   const tree = { name: 'All Allegations', children: [] };
-  const complaints = await Complaint.findAll({ raw: true });
+
+  let complaints;
+
+  try {
+    if (req.query.officer) {
+      complaints = (
+        await db.query(
+          `SELECT * FROM complaints WHERE "officerMosId" = ${req.query.officer}`
+        )
+      )[0];
+    } else {
+      complaints = (await db.query('SELECT * FROM complaints'))[0];
+    }
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+
   complaints.forEach((c) => {
     build(tree, c, arrOfSlices);
   });
