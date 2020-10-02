@@ -89,6 +89,15 @@ b.tablesaw-cell-label {
   margin: 30px 0;
 }
 
+.align-text-center {
+  text-align: center;
+}
+
+.caption {
+  font-style: italic;
+  font-size: 0.9rem;
+  margin: 10px 0 0 0;
+}
 p {
   line-height: 1.8rem;
 }
