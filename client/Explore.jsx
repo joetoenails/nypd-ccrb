@@ -58,7 +58,7 @@ export class Explore extends Component {
             >
               here
             </a>
-            . Propublica also gives a great{' '}
+            . ProPublica also gives a great{' '}
             <a
               target="_blank"
               href="https://projects.propublica.org/nypd-ccrb/"
@@ -73,13 +73,14 @@ export class Explore extends Component {
             complaints among different intersections of the population.
           </p>
           <Row className="align-items-center content-div">
-            <Col lg={6}>
+            <Col lg={{ order: 'first', span: 6 }} xs={{ order: 'last' }}>
               <SunburstStaticData data={fadoTypeTree} />
             </Col>
             <Col lg={6}>
               <p>
-                We can see here that most complaints are regarding Abuse of
-                Authority according to this chart. By hovering over each pie
+                This first pie chart represents all of the allegations in the
+                database. It's immediately clear that Abuse of Authority
+                allegations outnumber all the rest. By hovering over each pie
                 slice, we can see how many allegations that slice holds. But
                 what if I want to learn more about what who is actually making
                 these complaints? For instance, how does each of these
@@ -112,7 +113,7 @@ export class Explore extends Component {
             <Col lg={6}>
               <SunburstStaticData data={fadoEthnicityGenderTree} />
             </Col>
-            <Col lg={6}>
+            <Col lg={6} xs={{ order: 'first' }}>
               <p>
                 After adding gender as a third characteristic in this chart, I
                 can instantly see that Black males are consistently filing the
@@ -129,12 +130,12 @@ export class Explore extends Component {
           <Row className="align-items-center content-div">
             <Col lg={6}>
               <p>
-                The chart to your right holds the same information as the chart
-                above, but only shows 2 levels at a time. Click on each of the
-                pie slices to go further into that particular segment of the
-                data set, and click the blank space in the middle to move back
-                up one level. Now we can explore the smaller teal piece of the
-                pie towards the top of the chart to see the detail of Offensive
+                The next chart holds the same information as the previous chart
+                but only shows 2 levels at a time. Click on each of the pie
+                slices to go further into that particular segment of the data
+                set, and click the blank space in the middle to move back up one
+                level. Now we can explore the smaller teal piece of the pie
+                towards the top of the chart to see the detail of Offensive
                 Language Allegations. Always hover over each part of the pie to
                 see the total number of allegations for that piece.{' '}
               </p>
