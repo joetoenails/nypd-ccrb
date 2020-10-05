@@ -6,6 +6,7 @@ import { Cop } from './Cop';
 import { Home } from './Home';
 import { Bars } from './Bars';
 import { Explore } from './Explore';
+import { ScrollToTop } from './ScrollToTop';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 
@@ -58,6 +59,7 @@ const App = (props) => {
   // console.log('cop', officers);
   return (
     <Router>
+      <ScrollToTop />
       <Navigation />
       <Container fluid="sm" className="app-body">
         <Switch>

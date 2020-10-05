@@ -51,7 +51,7 @@ export const Navigation = (props) => {
           <Nav.Item>
             <LinkContainer to="/piezoom">
               <Nav.Link>
-                <h3>Piezoom</h3>
+                <h3>PieZoom</h3>
               </Nav.Link>
             </LinkContainer>
           </Nav.Item>

@@ -38,9 +38,12 @@ export const Home = (props) => {
         only offers viewing a CCRB if you know an exact case number, so the
         public has no resource to have a larger understanding of complaints
         against any particular officer or of complaints at the CCRB overall.
-        Further, using the NYC Open Data Portal, a user can only view complaints
-        and allegations received over time, but with no information on the
-        officers who are alleged against.{' '}
+        Further, using the{' '}
+        <a target="_blank" href="https://data.cityofnewyork.us/browse?q=ccrb">
+          NYC Open Data Portal
+        </a>
+        , a user can only view complaints and allegations received over time,
+        but with no information on the officers who are alleged against.{' '}
       </p>
       <p>
         {' '}
@@ -70,14 +73,16 @@ export const Home = (props) => {
         </a>
         , but I thought there were some features missing to help everyday people
         from understanding and seeing the data. Specifically, I wanted to see
-        complaints broken down by precinct and complaint ethnicity. The Pie
-        tools (<Link to="/pie">Pie</Link> and <Link to="/piezoom">PieZoom</Link>
-        ) make these and other aggregate combinations available for
-        visualization. I also wanted everyday users to be able to discover the
-        data through exploring a 'searchbar-free' interface that can easily
-        identify officers by amount of allegations received and the officer's
-        ethnicity. See <Link to="/squares">Squares</Link> and{' '}
-        <Link to="/bars">Bars</Link> for this.
+        complaints broken down by complainant ethnicity and complainant gender.
+        The Pie tools (<Link to="/pie">Pie</Link> and{' '}
+        <Link to="/piezoom">PieZoom</Link>) make these and other aggregate
+        combinations available for visualization. I explain how these tools work
+        in <Link to="/explore">Explore</Link>. I also wanted everyday users to
+        be able to discover the data through exploring a 'searchbar-free'
+        interface that can easily identify officers by amount of allegations
+        received and the officer's ethnicity. See{' '}
+        <Link to="/squares">Squares</Link> and <Link to="/bars">Bars</Link> for
+        this.
       </p>
       <p>
         So much of our world is controlled by 'the data', but few undertake the

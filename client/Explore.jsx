@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { SunburstStaticData } from './Sunburst/SunburstStaticData';
 import { SunburstZoomStaticData } from './Sunburst/SunburstZoomStaticData';
+import { Link } from 'react-router-dom';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import {
@@ -9,6 +10,7 @@ import {
   fadoEthnicityTree,
   fadoEthnicityGenderTree,
   fadoEthnicityGenderZoomTree,
+  ethnicityGenderFadoZoomTree,
 } from './sampleData';
 
 export class Explore extends Component {
@@ -142,6 +144,25 @@ export class Explore extends Component {
             </Col>
             <Col lg={6}>
               <SunburstZoomStaticData data={fadoEthnicityGenderZoomTree} />
+            </Col>
+          </Row>
+          <Row className="align-items-center content-div">
+            <Col lg={6}>
+              <p>
+                If we change the order of information in the pie chart to show
+                complainant ethnicity, then complainant gender, then abuse type,
+                we can easily see that Black males are overwhelming filing the
+                most allegations of police misconduct to the CCRB. After
+                clicking on 'Black', then 'Male', we can hover over the 'Abuse
+                of Authority' allegation type and see that there have been 8,824
+                total Abuse of Authority allegations filed at the CCRB where the
+                complainant is Black and Male. Check out{' '}
+                <Link to="pie">Pie</Link> and <Link to="/piezoom">PieZoom</Link>{' '}
+                to explore the data with your chosen data points.
+              </p>
+            </Col>
+            <Col lg={6}>
+              <SunburstZoomStaticData data={ethnicityGenderFadoZoomTree} />
             </Col>
           </Row>
         </div>

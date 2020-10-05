@@ -933,3 +933,720 @@ export const fadoEthnicityGenderZoomTree = {
     },
   ],
 };
+
+export const ethnicityGenderFadoZoomTree = {
+  name: 'All Allegations',
+  children: [
+    {
+      name: 'Unknown',
+      children: [
+        {
+          name: 'Unknown',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 2874 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 794 }],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 413 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 96 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Male',
+          children: [
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 148 }],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 614 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 280 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 15 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Female',
+          children: [
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 51 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 7 },
+              ],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 129 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 49 }],
+            },
+          ],
+        },
+        {
+          name: 'Not described',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 22 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 6 }],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 5 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 2 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'White',
+      children: [
+        {
+          name: 'Male',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 1285 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 450 }],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 367 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 39 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Female',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 378 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 103 }],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 118 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 26 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Transwoman (MTF)',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 7 },
+              ],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 1 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 1 }],
+            },
+          ],
+        },
+        {
+          name: 'Unknown',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 7 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 1 }],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Black',
+      children: [
+        {
+          name: 'Female',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 1521 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 603 }],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 560 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 136 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Male',
+          children: [
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 3466 }],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 8824 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 1725 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 255 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Unknown',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 4 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 2 }],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 1 }],
+            },
+          ],
+        },
+        {
+          name: 'Not described',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 6 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 1 }],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 1 }],
+            },
+          ],
+        },
+        {
+          name: 'Transwoman (MTF)',
+          children: [
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 2 },
+              ],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 2 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 1 }],
+            },
+          ],
+        },
+        {
+          name: 'Gender non-conforming',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 2 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Transman (FTM)',
+          children: [
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 1 }],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 1 }],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Hispanic',
+      children: [
+        {
+          name: 'Male',
+          children: [
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 1356 }],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 3131 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 779 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 91 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Female',
+          children: [
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 239 }],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 540 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 245 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 35 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Not described',
+          children: [
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 2 }],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 2 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Transwoman (MTF)',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 2 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 1 }],
+            },
+          ],
+        },
+        {
+          name: 'Unknown',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 1 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Other Race',
+      children: [
+        {
+          name: 'Male',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 301 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 101 }],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 120 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 17 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Female',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 84 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 22 }],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 22 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 3 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Transwoman (MTF)',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 3 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Not described',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 1 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Transman (FTM)',
+          children: [
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 1 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 1 }],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 1 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Asian',
+      children: [
+        {
+          name: 'Female',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 55 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 15 }],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 14 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 4 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Male',
+          children: [
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 72 }],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 273 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 81 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 16 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Unknown',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 2 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Refused',
+      children: [
+        {
+          name: 'Male',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 135 },
+              ],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 29 }],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 26 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 3 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Female',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 32 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 13 }],
+            },
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 10 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 2 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Not described',
+          children: [
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 2 }],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 6 },
+              ],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 1 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'American Indian',
+      children: [
+        {
+          name: 'Female',
+          children: [
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 5 },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Male',
+          children: [
+            {
+              name: 'Discourtesy',
+              children: [{ name: 'Discourtesy', children: [], value: 8 }],
+            },
+            {
+              name: 'Offensive Language',
+              children: [
+                { name: 'Offensive Language', children: [], value: 1 },
+              ],
+            },
+            {
+              name: 'Abuse of Authority',
+              children: [
+                { name: 'Abuse of Authority', children: [], value: 43 },
+              ],
+            },
+            {
+              name: 'Force',
+              children: [{ name: 'Force', children: [], value: 7 }],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
