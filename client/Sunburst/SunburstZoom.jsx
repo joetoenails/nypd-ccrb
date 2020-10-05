@@ -27,8 +27,8 @@ export class SunburstZoom extends React.Component {
   componentDidUpdate({ data }) {
     if (data !== this.props.data) {
       this.createChart(this.trySet);
-      console.log('component did update');
     }
+    console.log('component did update SunburstZoom');
   }
   trySet = (currentView) => {
     this.setState({ currentView });

@@ -101,6 +101,10 @@ b.tablesaw-cell-label {
 p {
   line-height: 1.8rem;
 }
+.narrative {
+  max-width: 800px;
+  margin: 0 auto;
+}
 
 blockquote {
   border-left: solid 3px lightgray;

@@ -1,6 +1,10 @@
 import React from 'react';
 import * as d3 from 'd3';
-
+/**
+ * Needs a prop called data that looks like [{name: String, children:[]}]
+ *
+ *
+ */
 export class SunburstStaticData extends React.Component {
   constructor() {
     super();
@@ -16,6 +20,7 @@ export class SunburstStaticData extends React.Component {
     if (!prevProps.data.name) {
       this.createChart();
     }
+    console.log('did update SunburstStaticData');
   }
 
   createChart() {
