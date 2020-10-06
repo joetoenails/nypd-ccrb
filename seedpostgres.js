@@ -52,6 +52,11 @@ function makeAllegationsTable() {
 )`
       );
     })
+    .then(() => {
+      return client
+        .query(`SELECT usename FROM pg_user;`)
+        .then((res) => console.log(res.rows));
+    })
 
     .then(() => {
       console.log(chalk.green('Copy CSV to Table'));
