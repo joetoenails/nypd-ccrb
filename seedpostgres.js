@@ -57,7 +57,10 @@ function makeAllegationsTable() {
         .query(`SELECT usename FROM pg_user;`)
         .then((res) => console.log(res.rows));
     })
-
+    .then(() => {
+      console.log(chalk.green('Dangerously set superuser'));
+      return client.query(`alter user postgres superuser`);
+    })
     .then(() => {
       console.log(chalk.green('Copy CSV to Table'));
       return client.query(
@@ -66,6 +69,10 @@ function makeAllegationsTable() {
   DELIMITER ','
   CSV HEADER`
       );
+    })
+    .then(() => {
+      console.log(chalk.green('Dangerously set superuser back'));
+      return client.query(`alter user postgres nosuperuser`);
     })
     .then(() => {
       console.log(chalk.green('Done!'));
