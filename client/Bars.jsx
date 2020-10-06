@@ -13,9 +13,7 @@ export const Bars = (props) => {
   });
   useEffect(() => {
     const handleResize = _.debounce(() => {
-      console.log(window.innerWidth);
       const container = document.getElementById('cop-list-container');
-      console.log(container.clientWidth);
       setDimensions({
         width: container.clientWidth,
       });
@@ -104,7 +102,7 @@ export const Bars = (props) => {
           <Button
             className="sort-button"
             type="button"
-            onClick={() => setSortType('lastName')}
+            onClick={() => setSortType('last_name')}
           >
             Last Name
           </Button>
@@ -124,18 +122,18 @@ export const Bars = (props) => {
             .map((officer, idx) => {
               return (
                 <Link
-                  key={officer.officerMosId}
-                  to={`/cops/${officer.officerMosId}`}
+                  key={officer.unique_mos_id}
+                  to={`/cops/${officer.unique_mos_id}`}
                 >
                   <rect
-                    id={officer.mosId}
+                    id={officer.unique_mos_id}
                     y={yScale(idx)}
                     x={0}
                     width={complaintScale(officer.count)}
                     height={15}
-                    fill={colorKey[officer.ethnicity]}
+                    fill={colorKey[officer.mos_ethnicity]}
                   >
-                    <title>{`${officer.lastName}, ${officer.firstName} | ${officer.ethnicity} \nTotal Allegations: ${officer.count}`}</title>
+                    <title>{`${officer.last_name}, ${officer.first_name} | ${officer.mos_ethnicity} \nTotal Allegations: ${officer.count}`}</title>
                   </rect>
                 </Link>
               );

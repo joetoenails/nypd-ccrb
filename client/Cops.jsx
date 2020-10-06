@@ -9,10 +9,7 @@ export const Cops = (props) => {
   let ethnicityKeys = Object.keys(ethnicities).sort(
     (a, b) => ethnicities[b] - ethnicities[a]
   );
-  const count = Object.keys(ethnicities).reduce(
-    (acc, cur) => ethnicities[cur] + acc,
-    0
-  );
+
   const colorKey = {
     White: 'red',
     Black: 'orange',
@@ -20,6 +17,7 @@ export const Cops = (props) => {
     Hispanic: 'indigo',
     'American Indian': 'blue',
   };
+
   return officers.length ? (
     <div>
       <h1>Squares</h1>
@@ -56,7 +54,7 @@ export const Cops = (props) => {
         ethnicity={'all'}
         filter={filter}
         setFilter={setFilter}
-        count={count}
+        count={officers.length}
         key={'all'}
         backgroundColor={'gray'}
       />
@@ -82,15 +80,17 @@ export const Cops = (props) => {
 
       <div id="cop-list-container">
         {officers
-          .filter((element) => {
+          .filter((cop) => {
             for (const category in filter) {
               if (filter[category] === 'all') return true;
-              if (element[category] !== filter[category]) return false;
+              if (cop[category] !== filter[category]) return false;
             }
             return true;
           })
           .map((officer) => {
-            return <CopListSquare officer={officer} key={officer.mosId} />;
+            return (
+              <CopListSquare officer={officer} key={officer.unique_mos_id} />
+            );
           })}
       </div>
     </div>

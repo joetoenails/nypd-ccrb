@@ -64,10 +64,8 @@ const path = require('path');
 
 function build(result, complaint, layers) {
   let currentObjectPlace = result;
-
   for (let i = 0; i < layers.length; i++) {
-    if (complaint[layers[i]] === '') {
-      // complaint[layers[i]] = `Unknown ${layers[i]}`;
+    if (!complaint[layers[i]] || complaint[layers[i]] === 'Not described') {
       complaint[layers[i]] = `Unknown`;
     }
     const curComplaintAttr = complaint[layers[i]];

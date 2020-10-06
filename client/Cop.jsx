@@ -4,7 +4,7 @@ import { compileComplaints } from './utils';
 import { Loading } from './Loading';
 import axios from 'axios';
 import Tablesaw from 'tablesaw';
-import { ComplaintRow } from './ComplaintRow';
+import { AllegationRow } from './AllegationRow';
 import { SunburstStaticData } from './Sunburst/SunburstStaticData';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -16,10 +16,10 @@ export const Cop = (props) => {
     axios.get(`/api/cops/${id}`).then(({ data }) => setOfficer(data));
   }, []);
 
-  const [complaints, setComplaints] = useState([]);
+  const [allegations, setAllegations] = useState([]);
   useEffect(() => {
-    axios.get(`/api/complaints?officer=${id}`).then(({ data }) => {
-      setComplaints(data);
+    axios.get(`/api/allegations?officer=${id}`).then(({ data }) => {
+      setAllegations(data);
     });
   }, []);
 
@@ -27,11 +27,10 @@ export const Cop = (props) => {
   useEffect(() => {
     axios
       .post(`/api/burst?officer=${id}`, {
-        firstLayer: 'fadoType',
-        secondLayer: 'complaintEthnicity',
+        firstLayer: 'fado_type',
+        secondLayer: 'complainant_ethnicity',
       })
       .then(({ data }) => {
-        console.log(data);
         setChartData(data);
       });
   }, []);
@@ -39,23 +38,24 @@ export const Cop = (props) => {
   useEffect(() => {
     Tablesaw.init();
   });
-  if (!officer || !complaints.length) return <Loading />;
+  if (!officer || !allegations.length || !chartData.name) return <Loading />;
 
-  const groupedComplaints = compileComplaints(complaints);
-  console.log('cs', complaints, 'gcs', groupedComplaints);
-  console.log('chartData', chartData);
+  const groupedComplaints = compileComplaints(allegations);
   return (
     <>
       <Row className="align-items-center">
         <Col md={6}>
           <h2>
-            Name: {officer.lastName}, {officer.firstName}
+            Name: {officer.last_name}, {officer.first_name}
           </h2>
-          <h4>Ethnicity: {officer.ethnicity}</h4>
-          <h4>Gender: {officer.gender === 'M' ? 'Male' : 'Female'}</h4>
-          <h4>Badge #: {officer.badge === '0' ? 'Unknown' : officer.badge}</h4>
+          <h4>Ethnicity: {officer.mos_ethnicity}</h4>
+          <h4>Gender: {officer.mos_gender === 'M' ? 'Male' : 'Female'}</h4>
+          <h4>
+            Badge #: {officer.shield_no === '0' ? 'Unknown' : officer.shield_no}
+          </h4>
           <h4>Total Complaints: {Object.keys(groupedComplaints).length}</h4>
-          <h4>Total Allegations: {complaints.length}</h4>
+          <h4>Total Allegations: {allegations.length}</h4>
+          <h4>Current Command: {officer.command_now}</h4>
         </Col>
         <Col md={6} className="align-text-center">
           <SunburstStaticData data={chartData} />
@@ -71,8 +71,8 @@ export const Cop = (props) => {
             <div key={group} className="complaint-container">
               <h4>Complaint #: {group}</h4>
               <h5>
-                Complaint Received: {groupedComplaints[group][0].monthReceived}/
-                {groupedComplaints[group][0].yearReceived}
+                Date Received: {groupedComplaints[group][0].month_received}/
+                {groupedComplaints[group][0].year_received}
               </h5>
 
               <table
@@ -86,7 +86,7 @@ export const Cop = (props) => {
                       Officer Rank
                     </th>
                     <th scope="col" data-tablesaw-priority="4">
-                      Complaintant
+                      Complainant
                     </th>
                     <th scope="col">Reason for Interaction</th>
 
@@ -96,7 +96,7 @@ export const Cop = (props) => {
                 <tbody>
                   {groupedComplaints[group].map((complaint) => {
                     return (
-                      <ComplaintRow key={complaint.id} complaint={complaint} />
+                      <AllegationRow key={complaint.id} complaint={complaint} />
                     );
                   })}
                 </tbody>

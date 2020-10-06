@@ -6,12 +6,12 @@ export const toggleFilter = (category, type, state, stateSet) => {
   }
 };
 
-export const compileComplaints = (complaints) => {
-  return complaints.reduce((allComplaints, complaint) => {
-    if (complaint.complaintId in allComplaints) {
-      allComplaints[complaint.complaintId].push(complaint);
+export const compileComplaints = (allegations) => {
+  return allegations.reduce((allComplaints, allegation) => {
+    if (allegation.complaint_id in allComplaints) {
+      allComplaints[allegation.complaint_id].push(allegation);
     } else {
-      allComplaints[complaint.complaintId] = [complaint];
+      allComplaints[allegation.complaint_id] = [allegation];
     }
     return allComplaints;
   }, {});
@@ -54,28 +54,32 @@ export const getFadoTypes = (complaints) => {
 };
 
 export const parseComplaintantInfo = ({
-  complaintEthnicity,
-  complaintGender,
-  complaintAge,
+  complainant_ethnicity,
+  complainant_gender,
+  complainant_age_incident,
 }) => {
-  if (!complaintEthnicity && !complaintGender && !complaintAge)
+  if (
+    !complainant_ethnicity &&
+    !complainant_gender &&
+    !complainant_age_incident
+  )
     return 'Unknown';
   let str = '';
-  if (!complaintEthnicity || complaintEthnicity === 'Unknown') {
+  if (!complainant_ethnicity || complainant_ethnicity === 'Unknown') {
     str += 'Unknown Ethnicity ';
   } else {
-    str += complaintEthnicity + ' ';
+    str += complainant_ethnicity + ' ';
   }
-  if (!complaintGender) {
+  if (!complainant_gender) {
     str += 'Unknown Gender. ';
   } else {
-    str += complaintGender + '. ';
+    str += complainant_gender + '. ';
   }
 
-  if (!complaintAge) {
+  if (!complainant_age_incident) {
     str += 'Unknown Age';
   } else {
-    str += `${complaintAge} years old.`;
+    str += `${complainant_age_incident} years old.`;
   }
 
   return str;

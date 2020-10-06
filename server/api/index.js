@@ -1,77 +1,58 @@
 const router = require('express').Router();
-const { Officer, Complaint, db } = require('../db');
+const db = require('../db');
 const { build } = require('../../analyze');
 
-router.get('/complaints-tweak', async (req, res, next) => {
-  // grab all officers and count how many allegations they have against them
-  //TODO: add count of complaints here as well.
+router.get('/allegations', async (req, res, next) => {
+  if (req.query.officer) {
+    try {
+      const result = await db.query(
+        `SELECT * FROM allegations 
+      WHERE unique_mos_id = $1`,
+        [req.query.officer]
+      );
+      return res.send(result.rows);
+    } catch (e) {
+      next(e);
+    }
+  }
   try {
-    const [
-      result,
-      meta,
-    ] = await db.query(`select count(*), "officerMosId", officers."firstName", officers."lastName", officers.ethnicity, officers.badge from complaints
-join officers on complaints."officerMosId" = officers."mosId"
-group by complaints."officerMosId", officers."firstName", officers."lastName", officers.badge, officers.ethnicity;
-`);
-    res.send(result);
+    const result = await db.query(`
+    SELECT count(*), unique_mos_id, first_name, last_name, mos_ethnicity, shield_no FROM allegations 
+    GROUP BY unique_mos_id, first_name, last_name, mos_ethnicity, shield_no;`);
+    res.send(result.rows);
   } catch (e) {
     next(e);
   }
 });
 
-router.get('/cops-ethnicity', (req, res, next) => {
-  db.query(
-    `select count(ethnicity), ethnicity from officers
-group by ethnicity`
-  )
-    .then(([data, meta]) => {
-      const ethnicityObj = data.reduce((acc, curr) => {
-        acc[curr.ethnicity] = Number(curr.count);
-        return acc;
-      }, {});
-      res.send(ethnicityObj);
-    })
-    .catch(next);
-});
+router.get('/cops/ethnicity', async (req, res, next) => {
+  try {
+    const result = await db.query(`
+    SELECT COUNT(DISTINCT unique_mos_id), mos_ethnicity FROM allegations
+    GROUP BY mos_ethnicity
+    `);
 
-router.get('/cops', (req, res, next) => {
-  Officer.findAll({
-    where: req.query,
-    include: { model: Complaint },
-  })
-    .then((officers) => {
-      res.send(officers);
-    })
-    .catch(next);
+    const ethnicityObj = result.rows.reduce((acc, curr) => {
+      acc[curr.mos_ethnicity] = Number(curr.count);
+      return acc;
+    }, {});
+    res.send(ethnicityObj);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get('/cops/:id', async (req, res, next) => {
-  Officer.findOne({
-    where: {
-      mosId: req.params.id,
-    },
-  })
-    .then((officer) => res.send(officer))
-    .catch(next);
-});
-
-router.get('/complaints', (req, res, next) => {
-  if (req.query.officer) {
-    Complaint.findAll({
-      where: {
-        officerMosId: req.query.officer,
-      },
-    })
-      .then((complaints) => res.send(complaints))
-      .catch(next);
-  } else {
-    Complaint.findAll({
-      where: req.query,
-    })
-      .then((complaints) => {
-        res.send(complaints);
-      })
-      .catch(next);
+  try {
+    const result = await db.query(
+      `SELECT unique_mos_id, first_name, last_name, mos_ethnicity, mos_gender, shield_no, command_now, rank_now, rank_abbrev_now FROM allegations 
+    WHERE unique_mos_id = $1
+    limit 1`,
+      [req.params.id]
+    );
+    res.send(result.rows[0]);
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -87,24 +68,23 @@ router.post('/burst', async (req, res, next) => {
     arrOfSlices.push(arrOfSlices[arrOfSlices.length - 1]);
   const tree = { name: 'All Allegations', children: [] };
 
-  let complaints;
+  let allegations;
 
   try {
     if (req.query.officer) {
-      complaints = (
-        await db.query(
-          `SELECT * FROM complaints WHERE "officerMosId" = ${req.query.officer}`
-        )
-      )[0];
+      allegations = await db.query(
+        'SELECT * FROM allegations WHERE unique_mos_id = $1',
+        [req.query.officer]
+      );
     } else {
-      complaints = (await db.query('SELECT * FROM complaints'))[0];
+      allegations = await db.query('SELECT * FROM allegations');
     }
   } catch (error) {
     console.log(error);
     next(error);
   }
 
-  complaints.forEach((c) => {
+  allegations.rows.forEach((c) => {
     build(tree, c, arrOfSlices);
   });
   res.json(tree);

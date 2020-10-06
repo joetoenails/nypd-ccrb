@@ -1,4 +1,4 @@
-const { Officer, Complaint, db } = require('./server/db.js');
+const { Officer, Allegation, db } = require('./server/db.js');
 const chalk = require('chalk');
 const csv = require('csv-parser');
 const fs = require('fs');
@@ -28,10 +28,10 @@ async function seed() {
 
     await Promise.all(uniqueOfficers.map(createOfficer));
     console.log(chalk.green('Unique Officers Seeded'));
-    console.log(chalk.yellow('Start create Complaints and Associate to Cops'));
+    console.log(chalk.yellow('Start create Allegations and Associate to Cops'));
 
-    await Promise.all(lineItems.map(createComplaintAssignToOfficer));
-    console.log(chalk.green('Complaints Seeded and Officers Associated'));
+    await Promise.all(lineItems.map(createAllegationAssignToOfficer));
+    console.log(chalk.green('Allegations Seeded and Officers Associated'));
     console.log(chalk.green('DONE'));
     await db.close();
   } catch (e) {
@@ -70,7 +70,7 @@ function getUniques(data) {
   return uniques;
 }
 
-async function createComplaintAssignToOfficer(complaint) {
+async function createAllegationAssignToOfficer(complaint) {
   let {
     unique_mos_id,
     complaint_id,
@@ -93,7 +93,7 @@ async function createComplaintAssignToOfficer(complaint) {
     board_disposition,
   } = complaint;
 
-  let createdComplaint = await Complaint.create({
+  let createdAllegation = await Allegation.create({
     complaintId: Number(complaint_id),
     monthReceived: month_received,
     yearReceived: year_received,
@@ -114,5 +114,5 @@ async function createComplaintAssignToOfficer(complaint) {
     boardDisposition: board_disposition,
   });
 
-  await createdComplaint.setOfficer(Number(unique_mos_id));
+  await createdAllegation.setOfficer(Number(unique_mos_id));
 }

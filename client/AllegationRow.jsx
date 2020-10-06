@@ -1,7 +1,7 @@
 import React from 'react';
 import { parseComplaintantInfo } from './utils';
 
-export const ComplaintRow = (props) => {
+export const AllegationRow = (props) => {
   const { complaint } = props;
   // TODO: Write parsing function that deals with Complaintant info incase it is undefined.
 
@@ -13,23 +13,23 @@ export const ComplaintRow = (props) => {
         <tr>
           <td>
             <b className="tablesaw-cell-label">Allegation</b>
-            {complaint.fadoType}: {complaint.allegation}
+            {complaint.fado_type}: {complaint.allegation}
           </td>
           <td>
             <b className="tablesaw-cell-label">Officer Rank </b>
-            {complaint.officerRank}
+            {complaint.rank_incident}
           </td>
           <td>
-            <b className="tablesaw-cell-label">Complaintant</b>
+            <b className="tablesaw-cell-label">Complainant</b>
             {parseComplaintantInfo(complaint)}
           </td>
           <td>
             <b className="tablesaw-cell-label">Reason For Interacting</b>
-            {complaint.contactReason}
+            {complaint.contact_reason}
           </td>
           <td>
             <b className="tablesaw-cell-label">Board Outcome</b>
-            {complaint.boardDisposition}
+            {complaint.board_disposition}
           </td>
         </tr>
       )}

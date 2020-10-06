@@ -14,14 +14,11 @@ export class Sunburst extends React.Component {
     this.node = React.createRef();
   }
 
-  componentDidMount() {
-    console.log('component did mount');
-  }
+  componentDidMount() {}
 
   componentDidUpdate({ data }) {
     if (data !== this.props.data) {
       this.createChart();
-      console.log('component did update');
     }
   }
   getUrl(obj) {
@@ -34,11 +31,8 @@ export class Sunburst extends React.Component {
     //TODO: Need to figure how to get AJAX params from this and other data.
     // probably need to get the 'analyze' function out of the server area and parse it against the csv
     // or against a call to
-    console.log(names.join());
   }
   createChart() {
-    console.log('reg node', this.node.current);
-    console.log('this.props.data', this.props.data);
     const width = 975;
     const radius = width / 2;
     const format = d3.format(',d');

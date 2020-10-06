@@ -17,7 +17,7 @@ import Container from 'react-bootstrap/Container';
 const App = (props) => {
   const [officers, setOfficers] = useState([]);
   useEffect(() => {
-    axios.get('/api/complaints-tweak').then(({ data }) => {
+    axios.get('/api/allegations').then(({ data }) => {
       setOfficers(data);
     });
   }, []);
@@ -25,13 +25,13 @@ const App = (props) => {
   const [ethnicities, setEthnicities] = useState({});
 
   useEffect(() => {
-    axios.get('/api/cops-ethnicity').then(({ data }) => {
+    axios.get('/api/cops/ethnicity').then(({ data }) => {
       setEthnicities(data);
     });
   }, []);
 
   const [filter, setFilter] = useState({
-    ethnicity: 'all',
+    mos_ethnicity: 'all',
   });
 
   const [sortType, setSortType] = useState('');
@@ -55,8 +55,7 @@ const App = (props) => {
     };
     setOfficers(sortOfficers(sortType));
   }, [sortType]);
-  // console.log('eth', ethnicities);
-  // console.log('cop', officers);
+
   return (
     <Router>
       <ScrollToTop />
@@ -66,6 +65,7 @@ const App = (props) => {
           <Route path="/cops/:id">
             <Cop officers={officers} />
           </Route>
+
           <Route path="/piezoom">
             <SunburstZoomWrapper
               officers={officers}
