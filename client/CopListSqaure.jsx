@@ -7,12 +7,12 @@ export const CopListSquare = ({ officer }) => {
     backgroundColor: `rgba(0,0,255,${opacity})`,
   };
   return (
-    <Link to={`/cops/${officer.officerMosId}`}>
+    <Link to={`/cops/${officer.unique_mos_id}`}>
       <div
-        key={officer.mosId}
+        key={officer.unique_mos_id}
         className="officer-list-square"
         style={colors}
-        title={`${officer.lastName}, ${officer.firstName} | ${officer.ethnicity}\nTotal allegations: ${officer.count}`}
+        title={`${officer.last_name}, ${officer.first_name} | ${officer.mos_ethnicity}\nTotal allegations: ${officer.count}`}
       ></div>
     </Link>
   );

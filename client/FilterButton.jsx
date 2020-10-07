@@ -26,8 +26,10 @@ export const FilterButton = ({
       id={`button-${ethnicity}`}
       key={ethnicity}
       type="button"
-      onClick={() => toggleFilter('ethnicity', ethnicity, filter, setFilter)}
-      style={filter.ethnicity === ethnicity ? activeButton : inactiveButton}
+      onClick={() =>
+        toggleFilter('mos_ethnicity', ethnicity, filter, setFilter)
+      }
+      style={filter.mos_ethnicity === ethnicity ? activeButton : inactiveButton}
     >
       {ethnicity} ({count})
     </Button>

@@ -8,18 +8,22 @@ import Col from 'react-bootstrap/Col';
 
 const dropdownOptions = [
   { value: '', description: 'Choose Layer' },
-  { value: 'complaintEthnicity', description: 'Complainant Ethnicity' },
-  { value: 'complaintGender', description: 'Complainant Gender' },
-  { value: 'complaintAge', description: 'Complainant Age' },
-  { value: 'fadoType', description: 'Complaint Category' },
+  { value: 'complainant_ethnicity', description: 'Complainant Ethnicity' },
+  { value: 'complainant_gender', description: 'Complainant Gender' },
+  { value: 'complainant_age_incident', description: 'Complainant Age' },
+  { value: 'fado_type', description: 'Complaint Category' },
   { value: 'allegation', description: 'Specific Allegation' },
   { value: 'precinct', description: 'Officer Precinct' },
-  { value: 'officerAge', description: 'Officer Age at Incident' },
-  { value: 'officerRank', description: 'Officer Rank at Incident' },
-  { value: 'officerCommand', description: 'Officer Command' },
-  { value: 'contactReason', description: 'Reason for Police Contact' },
-  { value: 'outcome', description: 'Outcome of Police Interaction' },
-  { value: 'boardDisposition', description: 'CCRB Board Disposition' },
+  { value: 'mos_age_incident', description: 'Officer Age at Incident' },
+  { value: 'mos_gender', description: 'Officer Gender at Incident' },
+  { value: 'rank_incident', description: 'Officer Rank at Incident' },
+  { value: 'command_at_incident', description: 'Officer Command' },
+  { value: 'contact_reason', description: 'Reason for Police Contact' },
+  {
+    value: 'outcome_description',
+    description: 'Outcome of Police Interaction',
+  },
+  { value: 'board_disposition', description: 'CCRB Board Disposition' },
 ];
 
 export const SunburstHOC = (SunburstComponent, options) => {
@@ -65,8 +69,6 @@ export const SunburstHOC = (SunburstComponent, options) => {
         });
     };
     handleChange = (e) => {
-      console.log('change');
-      console.log(e.target.name, e.target.value);
       this.setState({ [e.target.name]: e.target.value });
     };
     isDisabled = (currentSlice, value) => {
