@@ -115,6 +115,13 @@ blockquote {
   margin: 20px auto !important;
   font-style: italic;
 }
+
+#search-results {
+  margin-top: 15px;
+}
+#search-results li {
+  list-style-type: none;
+}
 @media (max-device-width: 640px) {
   h1#nav-title {
     font-size: 1.25rem;
