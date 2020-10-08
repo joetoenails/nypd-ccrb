@@ -2,7 +2,7 @@ const { Client } = require('pg');
 const chalk = require('chalk');
 
 const connectionString =
-  process.env.DATABASE_URL || 'postgresql://localhost:5432/nypd-export';
+  process.env.DATABASE_URL || 'postgresql://localhost:5432/nypd';
 
 const path = require('path');
 

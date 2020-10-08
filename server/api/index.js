@@ -19,7 +19,8 @@ router.get('/allegations', async (req, res, next) => {
     const result = await db.query(`
     SELECT count(*), unique_mos_id, first_name, last_name, mos_ethnicity, shield_no FROM allegations 
     GROUP BY unique_mos_id, first_name, last_name, mos_ethnicity, shield_no;`);
-    res.send(result.rows);
+
+    return res.send(result.rows);
   } catch (e) {
     next(e);
   }
@@ -53,6 +54,39 @@ router.get('/cops/:id', async (req, res, next) => {
     res.send(result.rows[0]);
   } catch (error) {
     next(error);
+  }
+});
+
+router.post('/search', async (req, res, next) => {
+  const { searchTerm } = req.body;
+  console.log(searchTerm);
+  if (Number(searchTerm)) {
+    console.log('here');
+    try {
+      const result = await db.query(
+        `SELECT unique_mos_id, first_name, last_name, mos_ethnicity, mos_gender, shield_no, command_now, rank_now, rank_abbrev_now FROM allegations 
+    WHERE shield_no = $1
+    limit 1`,
+        [searchTerm]
+      );
+      res.send(result.rows);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    try {
+      const result = await db.query(
+        `SELECT unique_mos_id, first_name, last_name, mos_ethnicity, mos_gender, shield_no, command_now, rank_now, rank_abbrev_now FROM allegations 
+    WHERE first_name ~* $1 OR last_name ~* $1
+    GROUP BY unique_mos_id, first_name, last_name, mos_ethnicity, mos_gender, shield_no, command_now, rank_now, rank_abbrev_now
+    ORDER BY last_name;
+    `,
+        [searchTerm]
+      );
+      res.send(result.rows);
+    } catch (error) {
+      next(error);
+    }
   }
 });
 

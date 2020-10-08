@@ -13,6 +13,7 @@ import axios from 'axios';
 import { SunburstZoomWrapper } from './Sunburst/SunburstZoom';
 import { SunburstWrapper } from './Sunburst/Sunburst';
 import Container from 'react-bootstrap/Container';
+import { SearchPage } from './SearchPage';
 
 const App = (props) => {
   const [officers, setOfficers] = useState([]);
@@ -108,6 +109,9 @@ const App = (props) => {
           </Route>
           <Route path="/explore">
             <Explore />
+          </Route>
+          <Route path="/search">
+            <SearchPage />
           </Route>
           <Route exact path="/">
             <Home />
