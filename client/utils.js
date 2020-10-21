@@ -53,33 +53,37 @@ export const getFadoTypes = (complaints) => {
   const types = {};
 };
 
-export const parseComplaintantInfo = ({
-  complainant_ethnicity,
-  complainant_gender,
-  complainant_age_incident,
-}) => {
-  if (
-    !complainant_ethnicity &&
-    !complainant_gender &&
-    !complainant_age_incident
-  )
-    return 'Unknown';
+export const parseComplaintantInfo = (allegation, isComplainant = true) => {
+  let copOrComplainant = 'complainant';
+  if (!isComplainant) copOrComplainant = 'mos';
+  const {
+    [`${copOrComplainant}_ethnicity`]: ethnicity,
+    [`${copOrComplainant}_gender`]: gender,
+    [`${copOrComplainant}_age_incident`]: age,
+  } = allegation;
+  if (!ethnicity && !gender && !age) return 'Unknown';
   let str = '';
-  if (!complainant_ethnicity || complainant_ethnicity === 'Unknown') {
+  if (!ethnicity || ethnicity === 'Unknown') {
     str += 'Unknown Ethnicity ';
   } else {
-    str += complainant_ethnicity + ' ';
+    str += ethnicity + ' ';
   }
-  if (!complainant_gender) {
-    str += 'Unknown Gender. ';
+  if (!gender) {
+    str += 'Unknown Gender, ';
   } else {
-    str += complainant_gender + '. ';
+    if (gender === 'M') {
+      str += 'male, ';
+    } else if (gender === 'F') {
+      str += 'female, ';
+    } else {
+      str += gender + ', ';
+    }
   }
 
-  if (!complainant_age_incident) {
+  if (!age) {
     str += 'Unknown Age';
   } else {
-    str += `${complainant_age_incident} years old.`;
+    str += `${age} years old`;
   }
 
   return str;

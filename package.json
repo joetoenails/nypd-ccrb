@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "buildwatch": "webpack -w",
     "build": "./node_modules/.bin/webpack --mode=\"production\" --display-error-details",
-    "servewatch": "nodemon --watch server server/index.js",
+    "servewatch": "NODE_ENV=development nodemon --watch server server/index.js",
     "serve": "node server/index.js",
     "start:dev": "npm run buildwatch & npm run servewatch",
     "start": "NODE_ENV=production npm run serve",
@@ -42,6 +42,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",

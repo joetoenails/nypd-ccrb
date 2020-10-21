@@ -122,6 +122,10 @@ blockquote {
 #search-results li {
   list-style-type: none;
 }
+
+.complaint-descriptor {
+  font-weight: bold;
+}
 @media (max-device-width: 640px) {
   h1#nav-title {
     font-size: 1.25rem;

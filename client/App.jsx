@@ -7,6 +7,7 @@ import { Home } from './Home';
 import { Bars } from './Bars';
 import { Explore } from './Explore';
 import { ScrollToTop } from './ScrollToTop';
+import { Complaint } from './Complaint';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 
@@ -63,8 +64,11 @@ const App = (props) => {
       <Navigation />
       <Container fluid="sm" className="app-body">
         <Switch>
-          <Route path="/cops/:id">
+          <Route path="/cop/:id">
             <Cop officers={officers} />
+          </Route>
+          <Route path="/complaint/:id">
+            <Complaint />
           </Route>
 
           <Route path="/piezoom">

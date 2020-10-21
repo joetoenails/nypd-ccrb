@@ -1,5 +1,6 @@
 import React from 'react';
 import { parseComplaintantInfo } from './utils';
+import { Loading } from './Loading';
 
 export const AllegationRow = (props) => {
   const { complaint } = props;
@@ -8,7 +9,7 @@ export const AllegationRow = (props) => {
   return (
     <>
       {!complaint ? (
-        'Loading'
+        <Loading />
       ) : (
         <tr>
           <td>

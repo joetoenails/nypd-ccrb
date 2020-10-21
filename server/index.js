@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const chalk = require('chalk');
 const PORT = process.env.PORT || 3000;
-
 const api = require('./api');
 const path = require('path');
 

@@ -2,12 +2,24 @@ const router = require('express').Router();
 const db = require('../db');
 const { build } = require('../../analyze');
 
+router.get('/complaint/:id', async (req, res, next) => {
+  try {
+    const result = await db.query(
+      'SELECT * FROM allegations WHERE complaint_id = $1',
+      [req.params.id]
+    );
+    res.send(result.rows);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/allegations', async (req, res, next) => {
   if (req.query.officer) {
     try {
       const result = await db.query(
         `SELECT * FROM allegations 
-      WHERE unique_mos_id = $1`,
+      WHERE unique_mos_id = $1 ORDER BY year_received DESC, month_received DESC`,
         [req.query.officer]
       );
       return res.send(result.rows);
@@ -51,7 +63,7 @@ router.get('/cops/:id', async (req, res, next) => {
     limit 1`,
       [req.params.id]
     );
-    res.send(result.rows[0]);
+    return res.send(result.rows[0]);
   } catch (error) {
     next(error);
   }
