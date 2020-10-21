@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const db = require('../db');
-const { build } = require('../../analyze');
+const { build, buildLinks, buildNodes } = require('../../analyze');
+const graphdata = require('../../graphdata.json');
 
 router.get('/complaint/:id', async (req, res, next) => {
   try {
@@ -71,9 +72,8 @@ router.get('/cops/:id', async (req, res, next) => {
 
 router.post('/search', async (req, res, next) => {
   const { searchTerm } = req.body;
-  console.log(searchTerm);
+
   if (Number(searchTerm)) {
-    console.log('here');
     try {
       const result = await db.query(
         `SELECT unique_mos_id, first_name, last_name, mos_ethnicity, mos_gender, shield_no, command_now, rank_now, rank_abbrev_now FROM allegations 
@@ -134,6 +134,37 @@ router.post('/burst', async (req, res, next) => {
     build(tree, c, arrOfSlices);
   });
   res.json(tree);
+});
+
+router.get('/graph', async (req, res, next) => {
+  if (req.query.officer) {
+  } else {
+    res.send(graphdata);
+  }
+
+  //   let allegations;
+  //   try {
+  //     if (req.query.officer) {
+  //     } else {
+  //       // get all allegations
+  //       const { rows } = await db.query(`SELECT * FROM allegations`);
+  //       allegations = rows;
+  //     }
+
+  //     const links = buildLinks(allegations).sort((a, b) => b.qty - a.qty);
+  //     const arrOfUniqueMosIds = buildNodes(links);
+  //     const { rows: nodes } = await db.query(
+  //       `SELECT count(*), unique_mos_id, first_name, last_name, mos_ethnicity, mos_gender, rank_now FROM allegations
+  // WHERE unique_mos_id IN (${arrOfUniqueMosIds})
+  // GROUP BY unique_mos_id, first_name, last_name,  mos_ethnicity, mos_gender, rank_now
+  // ORDER BY count DESC;`
+  //     );
+
+  //     res.send({ nodes, links });
+  //   } catch (error) {
+  //     console.log(error.stack);
+  //     next(error);
+  //   }
 });
 
 module.exports = router;

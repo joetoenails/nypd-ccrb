@@ -1,4 +1,4 @@
-const { db, Officer, Complaint } = require('./server/db');
+const db = require('./server/db');
 const fs = require('fs');
 const path = require('path');
 
@@ -91,4 +91,80 @@ function build(result, complaint, layers) {
   }
 }
 
-module.exports = { build };
+// by allegations, maybe we can make by complaints as well?
+function buildLinks(allegations) {
+  const links = [];
+  const complaintsById = {
+    // complaintId:  [{unique_mos_id, first_name, last_name}]
+  };
+  // make obj of complaintsById that hold arr of each officer in each complaint
+  allegations.forEach((allegation) => {
+    const officerArray = complaintsById[allegation.complaint_id];
+    let officer = null;
+    if (officerArray) {
+      officer = officerArray.find(
+        (o) => o.unique_mos_id === allegation.unique_mos_id
+      );
+    }
+    if (allegation.complaint_id in complaintsById && !officer) {
+      // add officer if not already there
+      complaintsById[allegation.complaint_id].push(
+        getOfficerDetails(allegation)
+      );
+    } else {
+      complaintsById[allegation.complaint_id] = [getOfficerDetails(allegation)];
+    }
+  });
+
+  // go through complaints and make links
+
+  for (const complaint in complaintsById) {
+    // make a link between all officers in complaint and continue to increase the qty if needed
+    const arrOfOfficersInComplaint = complaintsById[complaint];
+
+    for (let i = 0; i < arrOfOfficersInComplaint.length; i++) {
+      const initialOfficer = arrOfOfficersInComplaint[i];
+      for (let j = i + 1; j < arrOfOfficersInComplaint.length; j++) {
+        const nextOfficer = arrOfOfficersInComplaint[j];
+        // look for an already established link in links arr where the source or target is equal to the two officers you are establishing a link between
+
+        const possibleLink = links.find((link) => {
+          return (
+            (link.source === initialOfficer.unique_mos_id &&
+              link.target === nextOfficer.unique_mos_id) ||
+            (link.target === initialOfficer.unique_mos_id &&
+              link.source === nextOfficer.unique_mos_id)
+          );
+        });
+        if (possibleLink) {
+          possibleLink.qty++;
+        } else {
+          links.push({
+            source: initialOfficer.unique_mos_id,
+            target: nextOfficer.unique_mos_id,
+            initialOfficer,
+            nextOfficer,
+            qty: 1,
+          });
+        }
+      }
+    }
+  }
+  return links;
+}
+
+function buildNodes(linksArr) {
+  const uniqueIds = {};
+  linksArr.forEach((link) => {
+    if (!(link.source in uniqueIds)) uniqueIds[link.source] = true;
+    if (!(link.target in uniqueIds)) uniqueIds[link.target] = true;
+  });
+
+  return Object.keys(uniqueIds);
+}
+function getOfficerDetails(allegation) {
+  const { unique_mos_id, first_name, last_name } = allegation;
+  return { unique_mos_id, first_name, last_name };
+}
+
+module.exports = { build, buildLinks, buildNodes };

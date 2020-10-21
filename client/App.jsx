@@ -8,6 +8,7 @@ import { Bars } from './Bars';
 import { Explore } from './Explore';
 import { ScrollToTop } from './ScrollToTop';
 import { Complaint } from './Complaint';
+import { Graph } from './Graph/Graph';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 
@@ -71,6 +72,9 @@ const App = (props) => {
             <Complaint />
           </Route>
 
+          <Route path="/graph">
+            <Graph />
+          </Route>
           <Route path="/piezoom">
             <SunburstZoomWrapper
               officers={officers}

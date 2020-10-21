@@ -56,6 +56,13 @@ export const Navigation = (props) => {
             </LinkContainer>
           </Nav.Item>
           <Nav.Item>
+            <LinkContainer to="/graph">
+              <Nav.Link>
+                <h3>Graph</h3>
+              </Nav.Link>
+            </LinkContainer>
+          </Nav.Item>
+          <Nav.Item>
             <LinkContainer to="/search">
               <Nav.Link>
                 <h3>Search</h3>
