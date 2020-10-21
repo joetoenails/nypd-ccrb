@@ -79,7 +79,7 @@ class SearchPage extends React.Component {
               {this.state.results.map((result) => {
                 return (
                   <li key={result.unique_mos_id}>
-                    <Link to={`cops/${result.unique_mos_id}`}>
+                    <Link to={`cop/${result.unique_mos_id}`}>
                       {result.last_name}, {result.first_name} | Badge #:{' '}
                       {result.shield_no == '0' ? 'Unknown' : result.shield_no}
                     </Link>
