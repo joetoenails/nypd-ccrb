@@ -128,7 +128,7 @@ export class Sunburst extends React.Component {
   }
 
   render() {
-    console.log('props in SunburstClass', this.props);
+    // console.log('props in SunburstClass', this.props);
     return (
       <div>
         <p>

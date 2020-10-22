@@ -20,15 +20,15 @@ export class SunburstZoom extends React.Component {
   }
 
   componentDidMount() {
-    console.log('component did mount');
-    // this.createChart(this.trySet);
+    // console.log('component did mount');
+    this.createChart(this.trySet);
   }
 
   componentDidUpdate({ data }) {
     if (data !== this.props.data) {
       this.createChart(this.trySet);
     }
-    console.log('component did update SunburstZoom');
+    // console.log('component did update SunburstZoom');
   }
   trySet = (currentView) => {
     this.setState({ currentView });
@@ -211,8 +211,8 @@ export class SunburstZoom extends React.Component {
   }
 
   render() {
-    console.log('props in SunburstClassZoom', this.props);
-    console.log('state in SunburstClassZoom', this.state);
+    // console.log('props in SunburstClassZoom', this.props);
+    // console.log('state in SunburstClassZoom', this.state);
     return (
       <>
         <p>
