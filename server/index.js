@@ -21,6 +21,14 @@ app.use('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
+app.use((err, req, res, next) => {
+  console.log(chalk.white.bgRed('Server Error', err.stack));
+  if (err.status === 500) {
+    return res.send(err);
+  }
+  res.status(404).send(err);
+});
+
 app.listen(PORT, () => {
   console.log(chalk.blue(`Listenin on port ${PORT}`));
 });

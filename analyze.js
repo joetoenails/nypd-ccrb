@@ -99,18 +99,15 @@ function buildLinks(allegations) {
   };
   // make obj of complaintsById that hold arr of each officer in each complaint
   allegations.forEach((allegation) => {
-    const officerArray = complaintsById[allegation.complaint_id];
-    let officer = null;
-    if (officerArray) {
-      officer = officerArray.find(
+    if (allegation.complaint_id in complaintsById) {
+      let officer = complaintsById[allegation.complaint_id].find(
         (o) => o.unique_mos_id === allegation.unique_mos_id
       );
-    }
-    if (allegation.complaint_id in complaintsById && !officer) {
-      // add officer if not already there
-      complaintsById[allegation.complaint_id].push(
-        getOfficerDetails(allegation)
-      );
+      if (!officer) {
+        complaintsById[allegation.complaint_id].push(
+          getOfficerDetails(allegation)
+        );
+      }
     } else {
       complaintsById[allegation.complaint_id] = [getOfficerDetails(allegation)];
     }
@@ -156,7 +153,7 @@ function buildLinks(allegations) {
 function buildNodes(linksArr) {
   const uniqueIds = {};
   linksArr.forEach((link) => {
-    if (!(link.source in uniqueIds)) uniqueIds[link.source] = true;
+    if (!(link.source in uniqueIds)) uniqueIds[link.source] = w;
     if (!(link.target in uniqueIds)) uniqueIds[link.target] = true;
   });
 
@@ -167,4 +164,48 @@ function getOfficerDetails(allegation) {
   return { unique_mos_id, first_name, last_name };
 }
 
-module.exports = { build, buildLinks, buildNodes };
+// takes pre-processed links and nodes and returns links and nodes from one node with unique_mos_id
+function makeGraphForSingleOfficer(id, nodes, links) {
+  // go through links and get every link that has source or target equal to id
+  const allIds = {};
+  const queue = [];
+  console.log(id);
+  console.log(links[0]);
+  links.forEach((n) => {
+    if (n.source === id || n.target === id) {
+      // if any link contains primary officer, add it to queue
+      queue.push(n);
+    }
+  });
+  const visited = new Map();
+  const linksByOfficer = [];
+  // put those links into queue
+  while (queue.length) {
+    const link = queue.shift();
+    if (visited.has(link)) continue; // if we have already processed, continue
+    visited.set(link, true);
+    linksByOfficer.push(link); // this will be a link for graph
+    allIds[link.source] = true; // this will help generate nodes later
+    allIds[link.target] = true;
+
+    for (let i = 0; i < links.length; i++) {
+      // for every new link in the queue we need to check to see if a relationship exists with the source or target of every other link.
+      const current = links[i];
+      if (visited.has(current)) continue; // optimization
+      if (
+        // going through links, if the source or target is the current officer, we'll process that officer too.
+        current.source === link.source ||
+        current.source === link.target ||
+        current.target === link.source ||
+        current.target === link.target
+      ) {
+        queue.push(current);
+      }
+    }
+  }
+
+  const nodesByOfficer = nodes.filter((n) => n.unique_mos_id in allIds);
+  return { nodes: nodesByOfficer, links: linksByOfficer };
+}
+
+module.exports = { build, buildLinks, buildNodes, makeGraphForSingleOfficer };

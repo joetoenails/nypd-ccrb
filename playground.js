@@ -1,10 +1,17 @@
 const db = require('./server/db');
-const { buildLinks, buildNodes } = require('./analyze');
+const {
+  buildLinks,
+  buildNodes,
+  makeGraphForSingleOfficer,
+} = require('./analyze');
 const fs = require('fs');
+const graphdata = require('./graphdata.json');
 
 async function init() {
   try {
-    const { rows } = await db.query(`SELECT * FROM allegations`);
+    const { rows } = await db.query(
+      `SELECT * FROM allegations ORDER BY complaint_id;`
+    );
     // console.log(rows);
     const links = buildLinks(rows).sort((a, b) => b.qty - a.qty);
     // console.log(links);
@@ -28,3 +35,9 @@ ORDER BY count DESC;`
 }
 
 init();
+// const thing = makeGraphForSingleOfficer(
+//   23903,
+//   graphdata.nodes,
+//   graphdata.links
+// );
+// console.log(thing);

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const db = require('../db');
-const { build, buildLinks, buildNodes } = require('../../analyze');
+const { build, makeGraphForSingleOfficer } = require('../../analyze');
 const graphdata = require('../../graphdata.json');
 
 router.get('/complaint/:id', async (req, res, next) => {
@@ -64,6 +64,9 @@ router.get('/cops/:id', async (req, res, next) => {
     limit 1`,
       [req.params.id]
     );
+    if (!result.rows.length) {
+      throw new Error('No such officer exists.');
+    }
     return res.send(result.rows[0]);
   } catch (error) {
     next(error);
@@ -138,6 +141,16 @@ router.post('/burst', async (req, res, next) => {
 
 router.get('/graph', async (req, res, next) => {
   if (req.query.officer) {
+    const graphByOfficer = makeGraphForSingleOfficer(
+      Number(req.query.officer),
+      graphdata.nodes,
+      graphdata.links
+    );
+    if (!graphByOfficer.nodes.length) {
+      throw new Error('no nodes here');
+    }
+
+    return res.send(graphByOfficer);
   } else {
     res.send(graphdata);
   }
