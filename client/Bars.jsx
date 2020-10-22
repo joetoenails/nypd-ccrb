@@ -123,7 +123,7 @@ export const Bars = (props) => {
               return (
                 <Link
                   key={officer.unique_mos_id}
-                  to={`/cop/${officer.unique_mos_id}`}
+                  to={{ pathname: `/cop/${officer.unique_mos_id}` }}
                 >
                   <rect
                     id={officer.unique_mos_id}

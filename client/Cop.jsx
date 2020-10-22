@@ -12,9 +12,18 @@ import { Link } from 'react-router-dom';
 
 export const Cop = (props) => {
   const { id } = useParams();
+  const [error, setError] = useState({});
   const [officer, setOfficer] = useState({});
   useEffect(() => {
-    axios.get(`/api/cops/${id}`).then(({ data }) => setOfficer(data));
+    axios
+      .get(`/api/cops/${id}`)
+      .then(({ data }) => {
+        setOfficer(data);
+      })
+      .catch((e) => {
+        console.error('dis error', e.message);
+        setError(e);
+      });
   }, []);
 
   const [allegations, setAllegations] = useState([]);
@@ -39,6 +48,7 @@ export const Cop = (props) => {
   useEffect(() => {
     Tablesaw.init();
   });
+  if (error.message) return error.message;
   if (!officer || !allegations.length || !chartData.name) return <Loading />;
 
   const groupedComplaints = compileComplaints(allegations);
@@ -73,7 +83,8 @@ export const Cop = (props) => {
             return (
               <div key={group} className="complaint-container">
                 <h4>
-                  Complaint #: <Link to={`/complaint/${group}`}>{group}</Link>
+                  Complaint #:{' '}
+                  <Link to={{ pathname: `/complaint/${group}` }}>{group}</Link>
                 </h4>
                 <h5>
                   Date Received: {groupedComplaints[group][0].month_received}/

@@ -3,10 +3,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-
-import InputGroup from 'react-bootstrap/InputGroup';
-
 import axios from 'axios';
 
 class SearchPage extends React.Component {
@@ -27,7 +23,6 @@ class SearchPage extends React.Component {
       .post('/api/search', { searchTerm: this.state.badgeOrName })
       .then(({ data }) => {
         // if array is empty set no results
-        console.log('DATA', data);
         if (data.length === 0) {
           this.setState({ noResults: true });
         } else {
@@ -43,7 +38,6 @@ class SearchPage extends React.Component {
     });
   };
   render() {
-    console.log(this.state);
     return (
       <>
         <h1>Search</h1>
@@ -79,7 +73,7 @@ class SearchPage extends React.Component {
               {this.state.results.map((result) => {
                 return (
                   <li key={result.unique_mos_id}>
-                    <Link to={`cop/${result.unique_mos_id}`}>
+                    <Link to={{ pathname: `/cop/${result.unique_mos_id}` }}>
                       {result.last_name}, {result.first_name} | Badge #:{' '}
                       {result.shield_no == '0' ? 'Unknown' : result.shield_no}
                     </Link>

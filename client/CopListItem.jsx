@@ -7,7 +7,7 @@ export const CopListItem = ({ officer }) => {
     backgroundColor: `rgba(0,0,255,${opacity})`,
   };
   return (
-    <Link to={`/cops/${officer.mosId}`}>
+    <Link to={{ pathname: `/cop/${officer.mosId}` }}>
       <div key={officer.mosId} className="officer-list-item" style={colors}>
         <div>
           {officer.lastName}, {officer.firstName}

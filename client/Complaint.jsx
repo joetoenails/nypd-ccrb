@@ -109,7 +109,9 @@ export const Complaint = (props) => {
                   <tr key={allegation.id}>
                     <td>
                       <b className="tablesaw-cell-label">Officer</b>
-                      <Link to={`/cop/${allegation.unique_mos_id}`}>
+                      <Link
+                        to={{ pathname: `/cop/${allegation.unique_mos_id}` }}
+                      >
                         {allegation.first_name} {allegation.last_name}{' '}
                       </Link>
                     </td>

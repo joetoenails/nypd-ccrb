@@ -7,7 +7,7 @@ export const CopListSquare = ({ officer }) => {
     backgroundColor: `rgba(0,0,255,${opacity})`,
   };
   return (
-    <Link to={`/cop/${officer.unique_mos_id}`}>
+    <Link to={{ pathname: `/cop/${officer.unique_mos_id}` }}>
       <div
         key={officer.unique_mos_id}
         className="officer-list-square"
