@@ -126,6 +126,16 @@ blockquote {
 .complaint-descriptor {
   font-weight: bold;
 }
+
+.related-officer-table span.name {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.officer-box.col-md-6 {
+  margin-bottom: 2rem;
+}
+
 @media (max-device-width: 640px) {
   h1#nav-title {
     font-size: 1.25rem;

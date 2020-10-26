@@ -24,9 +24,9 @@ app.use('*', (req, res, next) => {
 app.use((err, req, res, next) => {
   console.log(chalk.white.bgRed('Server Error', err.stack));
   if (err.status === 500) {
-    return res.send(err);
+    return res.send(err.stack);
   }
-  res.status(404).send(err);
+  res.status(404).send(err.stack);
 });
 
 app.listen(PORT, () => {

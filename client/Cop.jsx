@@ -8,6 +8,8 @@ import { AllegationRow } from './AllegationRow';
 import { SunburstStaticData } from './Sunburst/SunburstStaticData';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 
 export const Cop = (props) => {
@@ -45,6 +47,22 @@ export const Cop = (props) => {
       });
   }, []);
 
+  const [relatedCops, setRelatedCops] = useState({});
+  useEffect(() => {
+    axios.get(`/api/cops/related?officer=${id}`).then(({ data }) => {
+      const groupById = data.reduce((copsById, allegation) => {
+        if (allegation.unique_mos_id in copsById) {
+          copsById[allegation.unique_mos_id].push(allegation);
+        } else {
+          copsById[allegation.unique_mos_id] = [allegation];
+        }
+        return copsById;
+      }, {});
+
+      setRelatedCops(groupById);
+    });
+  }, []);
+
   useEffect(() => {
     Tablesaw.init();
   });
@@ -52,21 +70,71 @@ export const Cop = (props) => {
   if (!officer || !allegations.length || !chartData.name) return <Loading />;
 
   const groupedComplaints = compileComplaints(allegations);
+
   return (
     <>
       <Row className="align-items-center">
-        <Col md={6}>
+        <Col md={6} className="officer-box">
           <h2>
-            Name: {officer.last_name}, {officer.first_name}
+            {officer.last_name}, {officer.first_name}
           </h2>
-          <h4>Ethnicity: {officer.mos_ethnicity}</h4>
-          <h4>Gender: {officer.mos_gender === 'M' ? 'Male' : 'Female'}</h4>
-          <h4>
+          <h5>
+            {officer.mos_ethnicity}{' '}
+            {officer.mos_gender === 'M' ? 'Male' : 'Female'}
+          </h5>
+          <h5>
             Badge #: {officer.shield_no === 0 ? 'Unknown' : officer.shield_no}
-          </h4>
-          <h4>Total Complaints: {Object.keys(groupedComplaints).length}</h4>
-          <h4>Total Allegations: {allegations.length}</h4>
-          <h4>Current Command: {officer.command_now}</h4>
+          </h5>
+          <h5>Total Complaints: {Object.keys(groupedComplaints).length}</h5>
+          <h5>Total Allegations: {allegations.length}</h5>
+          <h5>
+            Current: {officer.rank_now} at {officer.command_now}
+          </h5>
+
+          <Accordion>
+            <Card>
+              <Accordion.Toggle as={Card.Header} eventKey="0">
+                Other Officers listed in complaints with {officer.last_name}{' '}
+                &#9660;
+              </Accordion.Toggle>
+
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  <ul className="related-officer-table">
+                    {Object.keys(relatedCops)
+                      .sort(
+                        (a, b) => relatedCops[b].length - relatedCops[a].length
+                      )
+                      .map((key, i) => (
+                        <li key={key + i}>
+                          <Link
+                            to={`/cop/${relatedCops[key][0].unique_mos_id}`}
+                          >
+                            <span className="name">
+                              {relatedCops[key][0].last_name},{' '}
+                              {relatedCops[key][0].first_name}
+                            </span>
+                          </Link>
+                          :{' '}
+                          {relatedCops[key].map((complaint, i, self) => {
+                            return (
+                              <span key={complaint.complaint_id}>
+                                <Link
+                                  to={`/complaint/${complaint.complaint_id}`}
+                                >
+                                  {complaint.complaint_id}
+                                </Link>
+                                {i !== self.length - 1 && ', '}
+                              </span>
+                            );
+                          })}
+                        </li>
+                      ))}
+                  </ul>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
         </Col>
         <Col md={6} className="align-text-center">
           <SunburstStaticData data={chartData} />

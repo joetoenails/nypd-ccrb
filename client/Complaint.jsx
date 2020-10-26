@@ -40,7 +40,7 @@ export const Complaint = (props) => {
   useEffect(() => {
     Tablesaw.init();
   });
-  console.log('officers', officers);
+
   return (
     <>
       {!allegations.length ? (

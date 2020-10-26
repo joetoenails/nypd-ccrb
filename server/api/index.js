@@ -56,6 +56,26 @@ router.get('/cops/ethnicity', async (req, res, next) => {
   }
 });
 
+router.get('/cops/related', async (req, res, next) => {
+  try {
+    if (req.query.officer === undefined) {
+      throw new Error('Must have officer param');
+    }
+    const { rows } = await db.query(
+      `SELECT count(*), unique_mos_id, first_name, last_name, complaint_id from allegations
+       WHERE complaint_id in
+      (SELECT DISTINCT complaint_id FROM allegations 
+        WHERE unique_mos_id = $1) AND unique_mos_id <> $1
+      GROUP BY  unique_mos_id, first_name, last_name, complaint_id;`,
+      [req.query.officer]
+    );
+    res.send(rows);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 router.get('/cops/:id', async (req, res, next) => {
   try {
     const result = await db.query(
