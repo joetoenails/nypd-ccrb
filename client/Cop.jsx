@@ -14,9 +14,11 @@ import { Link } from 'react-router-dom';
 
 export const Cop = (props) => {
   const { id } = useParams();
+  console.log('ID in Cop', id);
   const [error, setError] = useState({});
   const [officer, setOfficer] = useState({});
   useEffect(() => {
+    console.log('use effect Cop,', id);
     axios
       .get(`/api/cops/${id}`)
       .then(({ data }) => {
@@ -26,14 +28,14 @@ export const Cop = (props) => {
         console.error('dis error', e.message);
         setError(e);
       });
-  }, []);
+  }, [id]);
 
   const [allegations, setAllegations] = useState([]);
   useEffect(() => {
     axios.get(`/api/allegations?officer=${id}`).then(({ data }) => {
       setAllegations(data);
     });
-  }, []);
+  }, [id]);
 
   const [chartData, setChartData] = useState({});
   useEffect(() => {
@@ -44,8 +46,11 @@ export const Cop = (props) => {
       })
       .then(({ data }) => {
         setChartData(data);
+      })
+      .catch((e) => {
+        console.log('error in setChart', e);
       });
-  }, []);
+  }, [id]);
 
   const [relatedCops, setRelatedCops] = useState({});
   useEffect(() => {
@@ -61,7 +66,7 @@ export const Cop = (props) => {
 
       setRelatedCops(groupById);
     });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     Tablesaw.init();
@@ -107,14 +112,14 @@ export const Cop = (props) => {
                       )
                       .map((key, i) => (
                         <li key={key + i}>
-                          <Link
-                            to={`/cop/${relatedCops[key][0].unique_mos_id}`}
-                          >
-                            <span className="name">
+                          <span className="officer-name">
+                            <Link
+                              to={`/cop/${relatedCops[key][0].unique_mos_id}`}
+                            >
                               {relatedCops[key][0].last_name},{' '}
                               {relatedCops[key][0].first_name}
-                            </span>
-                          </Link>
+                            </Link>
+                          </span>
                           :{' '}
                           {relatedCops[key].map((complaint, i, self) => {
                             return (

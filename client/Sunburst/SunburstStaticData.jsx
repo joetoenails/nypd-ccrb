@@ -17,7 +17,7 @@ export class SunburstStaticData extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.data.name) {
+    if (prevProps !== this.props) {
       this.createChart();
     }
   }
