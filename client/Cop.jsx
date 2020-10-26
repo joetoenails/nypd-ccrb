@@ -50,7 +50,9 @@ export const Cop = (props) => {
   }, [id]);
 
   const [relatedCops, setRelatedCops] = useState({});
+  const [relatingLoading, setRelatingLoading] = useState(false);
   useEffect(() => {
+    setRelatingLoading(true);
     axios.get(`/api/cops/related?officer=${id}`).then(({ data }) => {
       const groupById = data.reduce((copsById, allegation) => {
         if (allegation.unique_mos_id in copsById) {
@@ -62,6 +64,7 @@ export const Cop = (props) => {
       }, {});
 
       setRelatedCops(groupById);
+      setRelatedLoading(false);
     });
   }, [id]);
 
@@ -92,7 +95,11 @@ export const Cop = (props) => {
           <h5>
             Current: {officer.rank_now} at {officer.command_now}
           </h5>
-          <CopAccordion relatedCops={relatedCops} officer={officer} />
+          <CopAccordion
+            relatedCops={relatedCops}
+            officer={officer}
+            relatingLoading={relatingLoading}
+          />
         </Col>
         <Col md={6} className="align-text-center">
           <SunburstStaticData data={chartData} />

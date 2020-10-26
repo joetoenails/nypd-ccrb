@@ -3,7 +3,21 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 
-export const CopAccordion = ({ relatedCops, officer }) => {
+export const CopAccordion = ({ relatedCops, officer, relatingLoading }) => {
+  if (!Object.keys(relatedCops).length) {
+    return (
+      <Accordion>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="0">
+            {relatingLoading
+              ? 'Loading'
+              : `No other officers listed in complaints with
+            ${officer.last_name}.`}
+          </Accordion.Toggle>
+        </Card>
+      </Accordion>
+    );
+  }
   return (
     <Accordion>
       <Card>
