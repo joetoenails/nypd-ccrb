@@ -8,17 +8,14 @@ import { AllegationRow } from './AllegationRow';
 import { SunburstStaticData } from './Sunburst/SunburstStaticData';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Accordion from 'react-bootstrap/Accordion';
-import Card from 'react-bootstrap/Card';
+import { CopAccordion } from './CopAccordion';
 import { Link } from 'react-router-dom';
 
 export const Cop = (props) => {
   const { id } = useParams();
-  console.log('ID in Cop', id);
   const [error, setError] = useState({});
   const [officer, setOfficer] = useState({});
   useEffect(() => {
-    console.log('use effect Cop,', id);
     axios
       .get(`/api/cops/${id}`)
       .then(({ data }) => {
@@ -95,51 +92,7 @@ export const Cop = (props) => {
           <h5>
             Current: {officer.rank_now} at {officer.command_now}
           </h5>
-
-          <Accordion>
-            <Card>
-              <Accordion.Toggle as={Card.Header} eventKey="0">
-                Other Officers listed in complaints with {officer.last_name}{' '}
-                &#9660;
-              </Accordion.Toggle>
-
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <ul className="related-officer-table">
-                    {Object.keys(relatedCops)
-                      .sort(
-                        (a, b) => relatedCops[b].length - relatedCops[a].length
-                      )
-                      .map((key, i) => (
-                        <li key={key + i}>
-                          <span className="officer-name">
-                            <Link
-                              to={`/cop/${relatedCops[key][0].unique_mos_id}`}
-                            >
-                              {relatedCops[key][0].last_name},{' '}
-                              {relatedCops[key][0].first_name}
-                            </Link>
-                          </span>
-                          :{' '}
-                          {relatedCops[key].map((complaint, i, self) => {
-                            return (
-                              <span key={complaint.complaint_id}>
-                                <Link
-                                  to={`/complaint/${complaint.complaint_id}`}
-                                >
-                                  {complaint.complaint_id}
-                                </Link>
-                                {i !== self.length - 1 && ', '}
-                              </span>
-                            );
-                          })}
-                        </li>
-                      ))}
-                  </ul>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
+          <CopAccordion relatedCops={relatedCops} officer={officer} />
         </Col>
         <Col md={6} className="align-text-center">
           <SunburstStaticData data={chartData} />
