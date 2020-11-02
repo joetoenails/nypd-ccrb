@@ -2,10 +2,17 @@ import React, { useEffect } from 'react';
 import { parseComplaintantInfo } from './utils';
 import Tablesaw from 'tablesaw';
 import Pagination from 'react-bootstrap/Pagination';
+import { Link } from 'react-router-dom';
 
 export const AllegationsTable = (props) => {
-  const { allegations, total, handleQuery, curOffset } = props;
-  const NUMRESULTS = 30;
+  const {
+    allegations,
+    total,
+    handleQuery,
+    curOffset,
+    NUMRESULTS,
+    description,
+  } = props;
 
   const isDisabled = (isNext) => {
     if (isNext) {
@@ -19,20 +26,32 @@ export const AllegationsTable = (props) => {
   });
   return (
     <>
-      <h5>
-        Page {Math.floor(curOffset / NUMRESULTS) + 1} of{' '}
-        {Math.ceil(total / NUMRESULTS)}
-      </h5>
-      <Pagination>
-        <Pagination.Prev
-          disabled={isDisabled(false)}
-          onClick={() => handleQuery(-NUMRESULTS)}
-        />
-        <Pagination.Next
-          disabled={isDisabled(true)}
-          onClick={() => handleQuery(NUMRESULTS)}
-        />
-      </Pagination>
+      <p>{description}</p>
+      <hr />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <p>
+          Page {Math.floor(curOffset / NUMRESULTS) + 1} of{' '}
+          {Math.ceil(total / NUMRESULTS)}
+        </p>
+        <Pagination>
+          <Pagination.First
+            disabled={isDisabled(false)}
+            onClick={() => handleQuery({ isFirst: true })}
+          />
+          <Pagination.Prev
+            disabled={isDisabled(false)}
+            onClick={() => handleQuery({ offset: -NUMRESULTS })}
+          />
+          <Pagination.Next
+            disabled={isDisabled(true)}
+            onClick={() => handleQuery({ offset: NUMRESULTS })}
+          />
+          <Pagination.Last
+            disabled={isDisabled(true)}
+            onClick={() => handleQuery({ offset: NUMRESULTS, isLast: true })}
+          />
+        </Pagination>
+      </div>
       <table className="tablesaw table-hover" data-tablesaw-mode="stack">
         <thead>
           <tr>
@@ -54,7 +73,9 @@ export const AllegationsTable = (props) => {
               <tr key={a.id}>
                 <td>
                   <b className="tablesaw-cell-label">Officer</b>
-                  {a.first_name} {a.last_name}
+                  <Link to={`/cop/${a.unique_mos_id}`}>
+                    {a.first_name} {a.last_name}
+                  </Link>
                 </td>
                 <td>
                   <b className="tablesaw-cell-label">Officer Rank </b>
@@ -78,13 +99,21 @@ export const AllegationsTable = (props) => {
         </tbody>
       </table>
       <Pagination>
+        <Pagination.First
+          disabled={isDisabled(false)}
+          onClick={() => handleQuery({ isFirst: true })}
+        />
         <Pagination.Prev
           disabled={isDisabled(false)}
-          onClick={() => handleQuery(-NUMRESULTS)}
+          onClick={() => handleQuery({ offset: -NUMRESULTS })}
         />
         <Pagination.Next
           disabled={isDisabled(true)}
-          onClick={() => handleQuery(NUMRESULTS)}
+          onClick={() => handleQuery({ offset: NUMRESULTS })}
+        />
+        <Pagination.Last
+          disabled={isDisabled(true)}
+          onClick={() => handleQuery({ offset: NUMRESULTS, isLast: true })}
         />
       </Pagination>
     </>
