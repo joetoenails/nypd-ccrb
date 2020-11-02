@@ -1,19 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 import { SunburstHOC } from './SunburstHOC';
-import { SunburstZoomStaticData } from './SunburstZoomStaticData';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-// import { data } from './utils';
 import data from '../../ethincity.json';
 import * as d3 from 'd3';
+import { LoadingButton } from './LoadingButton';
 
 export class SunburstZoom extends React.Component {
   constructor() {
     super();
-    this.state = {
-      currentView: '',
-    };
+
     this.createChart = this.createChart.bind(this);
     this.getUrl = this.getUrl.bind(this);
     this.node = React.createRef();
@@ -21,12 +16,12 @@ export class SunburstZoom extends React.Component {
 
   componentDidMount() {
     // console.log('component did mount');
-    this.createChart(this.trySet);
+    this.createChart(this.props.setCurrentView);
   }
 
   componentDidUpdate({ data }) {
     if (data !== this.props.data) {
-      this.createChart(this.trySet);
+      this.createChart(this.props.setCurrentView);
     }
     // console.log('component did update SunburstZoom');
   }
@@ -46,7 +41,7 @@ export class SunburstZoom extends React.Component {
     console.log(names.join());
   }
   createChart(setState) {
-    setState('All Allegations');
+    setState(['All Allegations']);
     const width = 975;
     const radius = width / 6;
     const partition = (data) => {
@@ -136,15 +131,14 @@ export class SunburstZoom extends React.Component {
     function clicked(event, p) {
       console.log('clickeddd!');
       setState(
-        `${p
+        p
           .ancestors()
           .map((d) => d.data.name)
           .reverse()
-          .join('/')}`
       );
 
       parent.datum(p.parent || root);
-      console.log('parent', parent);
+
       root.each(
         (d) =>
           (d.target = {
@@ -211,8 +205,8 @@ export class SunburstZoom extends React.Component {
   }
 
   render() {
-    // console.log('props in SunburstClassZoom', this.props);
-    // console.log('state in SunburstClassZoom', this.state);
+    console.log('props in SunburstClassZoom', this.props);
+    // console.log('legend', legend)
     return (
       <>
         <p>
@@ -223,8 +217,16 @@ export class SunburstZoom extends React.Component {
           the statistics of that slice. Click the middle of the circle to go
           back to the previous level.
         </p>
-
-        <p>Current view: {this.state.currentView}</p>
+        <div>
+          <p>Current view: {this.props.currentViewDisplay()}</p>
+          <LoadingButton
+            type="click"
+            onClick={() => this.props.handleQuery({ isFirst: true })}
+            isLoading={this.props.isQueryLoading}
+            buttonText={'Submit Query For Current View'}
+            currentView={this.props.currentView}
+          />
+        </div>
         <div className="graph-container">
           <div ref={this.node}></div>
         </div>

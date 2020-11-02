@@ -4,7 +4,6 @@ import { Loading } from './Loading';
 
 export const AllegationRow = (props) => {
   const { complaint } = props;
-  // TODO: Write parsing function that deals with Complaintant info incase it is undefined.
 
   return (
     <>

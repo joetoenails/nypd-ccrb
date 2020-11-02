@@ -1,30 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
-const dropdownOptions = [
-  { value: '', description: 'Choose Layer' },
-  { value: 'complainant_ethnicity', description: 'Complainant Ethnicity' },
-  { value: 'complainant_gender', description: 'Complainant Gender' },
-  { value: 'complainant_age_incident', description: 'Complainant Age' },
-  { value: 'fado_type', description: 'Complaint Category' },
-  { value: 'allegation', description: 'Specific Allegation' },
-  { value: 'precinct', description: 'Officer Precinct' },
-  { value: 'mos_age_incident', description: 'Officer Age at Incident' },
-  { value: 'mos_gender', description: 'Officer Gender at Incident' },
-  { value: 'rank_incident', description: 'Officer Rank at Incident' },
-  { value: 'command_at_incident', description: 'Officer Command' },
-  { value: 'contact_reason', description: 'Reason for Police Contact' },
-  {
-    value: 'outcome_description',
-    description: 'Outcome of Police Interaction',
-  },
-  { value: 'board_disposition', description: 'CCRB Board Disposition' },
-];
+import { legend, dropdownOptions } from './formOptions';
+import { LoadingButton } from './LoadingButton';
+import { AllegationsTable } from '../AllegationsTable';
 
 export const SunburstHOC = (SunburstComponent, options) => {
   return class SunburstForm extends React.Component {
@@ -33,10 +14,15 @@ export const SunburstHOC = (SunburstComponent, options) => {
       this.state = {
         graphAttr: [],
         complaintGraphData: [],
+        queryResults: [],
+        currentView: [],
         slice1: '',
         slice2: '',
         slice3: '',
         isLoading: false,
+        isQueryLoading: false,
+        curOffset: 0,
+        totalQueryCount: 0,
       };
     }
 
@@ -51,6 +37,67 @@ export const SunburstHOC = (SunburstComponent, options) => {
     // set that on to complaint view data and render in another component below for (probalby table) for cop data
     // make tree info on serverside and send json of tree ONLY to data
 
+    setCurrentView = (currentView) => {
+      this.setState({ currentView });
+    };
+    makeString = (offset = 0) => {
+      const { slice1, slice2, slice3, currentView } = this.state;
+      const currentViews = currentView.slice(1);
+      let arr = [];
+      for (let i = 0; i < currentViews.length; i++) {
+        const key = this.state['slice' + [i + 1]];
+        let str = '';
+        str += this.state['slice' + [i + 1]];
+        str += '=';
+        str += currentViews[i];
+        arr.push(str);
+      }
+      arr.push(`offset=${offset}`);
+
+      return arr.join('&');
+    };
+    currentViewDisplay = () => {
+      // grab the slice of this.state.currentView from 1
+      // if that has a length, continue
+      const { slice1, slice2, slice3, currentView } = this.state;
+      let arr = [];
+      const currentViews = currentView.slice(1);
+      for (let i = 0; i < currentViews.length; i++) {
+        const key = this.state['slice' + [i + 1]];
+        let str = '';
+        str += legend[this.state['slice' + [i + 1]]];
+        str += ' is ';
+        str += currentViews[i];
+        arr.push(str);
+      }
+      if (arr.length === 0) return '';
+
+      return 'All Allegations where ' + arr.join(' and ');
+    };
+
+    handleQuery = (options) => {
+      const { offset, isFirst, isLast } = options;
+      const { curOffset, totalQueryCount } = this.state;
+      let actualOffset = offset + curOffset;
+      if (isFirst) {
+        actualOffset = curOffset * 0;
+      }
+      if (isLast) {
+        actualOffset = Math.floor(totalQueryCount / offset) * offset;
+      }
+      this.setState({ isQueryLoading: true });
+      axios
+        .get(`/api/allegations?${this.makeString(actualOffset)}`)
+        .then(({ data }) => {
+          this.setState((state) => ({
+            queryResults: data.data,
+            isQueryLoading: false,
+            totalQueryCount: data.count,
+            curOffset: actualOffset,
+          }));
+        })
+        .catch((e) => console.error(e));
+    };
     handleSubmit = (e) => {
       e.preventDefault();
       const { slice1, slice2, slice3 } = this.state;
@@ -71,6 +118,7 @@ export const SunburstHOC = (SunburstComponent, options) => {
     handleChange = (e) => {
       this.setState({ [e.target.name]: e.target.value });
     };
+
     isDisabled = (currentSlice, value) => {
       switch (currentSlice) {
         case 'slice1':
@@ -149,37 +197,36 @@ export const SunburstHOC = (SunburstComponent, options) => {
                   </Form.Group>
                 </Col>
                 <Col md={3}>
-                  {this.state.isLoading ? (
-                    <Button
-                      className="form-button"
-                      variant="primary"
-                      block
-                      disabled
-                    >
-                      <Spinner
-                        as="span"
-                        animation="grow"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        style={{ marginRight: '10px' }}
-                      />
-                      Loading
-                    </Button>
-                  ) : (
-                    <Button
-                      className="form-button"
-                      type="submit"
-                      block
-                    >{`Make \n Graph`}</Button>
-                  )}
+                  <LoadingButton
+                    isLoading={this.state.isLoading}
+                    buttonText="Make Graph"
+                    type="submit"
+                  />
                 </Col>
               </Row>
             </Form>
             <SunburstComponent
+              currentViewDisplay={this.currentViewDisplay}
+              setCurrentView={this.setCurrentView}
+              handleQuery={this.handleQuery}
               data={this.state.complaintGraphData}
+              {...this.state}
               {...this.props}
             />
+
+            {/* <ComplaintsWithAllegations
+              groupedComplaints={this.state.queryResults}
+            /> */}
+            {this.state.queryResults.length ? (
+              <AllegationsTable
+                allegations={this.state.queryResults}
+                total={this.state.totalQueryCount}
+                handleQuery={this.handleQuery}
+                curOffset={this.state.curOffset}
+                NUMRESULTS={30}
+                description={this.currentViewDisplay()}
+              />
+            ) : null}
           </div>
         </div>
       );
