@@ -3,8 +3,6 @@ import _ from 'lodash';
 import { SunburstHOC } from './SunburstHOC';
 import data from '../../ethincity.json';
 import * as d3 from 'd3';
-import { SubmitButton } from './SubmitButton';
-import Button from 'react-bootstrap/Button';
 import { LoadingButton } from './LoadingButton';
 
 export class SunburstZoom extends React.Component {
@@ -140,7 +138,7 @@ export class SunburstZoom extends React.Component {
       );
 
       parent.datum(p.parent || root);
-      console.log('parent', parent);
+
       root.each(
         (d) =>
           (d.target = {
@@ -207,7 +205,7 @@ export class SunburstZoom extends React.Component {
   }
 
   render() {
-    // console.log('props in SunburstClassZoom', this.props);
+    console.log('props in SunburstClassZoom', this.props);
     // console.log('legend', legend)
     return (
       <>
@@ -220,19 +218,14 @@ export class SunburstZoom extends React.Component {
           back to the previous level.
         </p>
         <div>
-          <p>Current view: {this.props.currentView}</p>
+          <p>Current view: {this.props.currentViewDisplay()}</p>
           <LoadingButton
             type="click"
-            onClick={() => this.props.handleQuery()}
+            onClick={() => this.props.handleQuery({ isFirst: true })}
             isLoading={this.props.isQueryLoading}
             buttonText={'Submit Query For Current View'}
-          />
-          {/* <SubmitButton
             currentView={this.props.currentView}
-            slice1={this.props.slice1}
-            slice2={this.props.slice2}
-            slice3={this.props.slice3}
-          ></SubmitButton> */}
+          />
         </div>
         <div className="graph-container">
           <div ref={this.node}></div>
