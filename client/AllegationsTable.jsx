@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { parseComplaintantInfo } from './utils';
 import Tablesaw from 'tablesaw';
+import Pagination from 'react-bootstrap/Pagination';
 
 export const AllegationsTable = (props) => {
   const { allegations, total, handleQuery, curOffset } = props;
@@ -18,20 +19,20 @@ export const AllegationsTable = (props) => {
   });
   return (
     <>
-      {Math.floor(curOffset / NUMRESULTS) + 1} of{' '}
-      {Math.ceil(total / NUMRESULTS)}
-      <button
-        disabled={isDisabled(false)}
-        onClick={() => handleQuery(-NUMRESULTS)}
-      >
-        Prev Page
-      </button>
-      <button
-        disabled={isDisabled(true)}
-        onClick={() => handleQuery(NUMRESULTS)}
-      >
-        Next Page
-      </button>
+      <h5>
+        Page {Math.floor(curOffset / NUMRESULTS) + 1} of{' '}
+        {Math.ceil(total / NUMRESULTS)}
+      </h5>
+      <Pagination>
+        <Pagination.Prev
+          disabled={isDisabled(false)}
+          onClick={() => handleQuery(-NUMRESULTS)}
+        />
+        <Pagination.Next
+          disabled={isDisabled(true)}
+          onClick={() => handleQuery(NUMRESULTS)}
+        />
+      </Pagination>
       <table className="tablesaw table-hover" data-tablesaw-mode="stack">
         <thead>
           <tr>
@@ -76,18 +77,16 @@ export const AllegationsTable = (props) => {
           })}
         </tbody>
       </table>
-      <button
-        disabled={isDisabled(false)}
-        onClick={() => handleQuery(-NUMRESULTS)}
-      >
-        Prev Page
-      </button>
-      <button
-        disabled={isDisabled(true)}
-        onClick={() => handleQuery(NUMRESULTS)}
-      >
-        Next Page
-      </button>
+      <Pagination>
+        <Pagination.Prev
+          disabled={isDisabled(false)}
+          onClick={() => handleQuery(-NUMRESULTS)}
+        />
+        <Pagination.Next
+          disabled={isDisabled(true)}
+          onClick={() => handleQuery(NUMRESULTS)}
+        />
+      </Pagination>
     </>
   );
 };
