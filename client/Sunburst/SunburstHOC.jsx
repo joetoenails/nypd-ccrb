@@ -3,10 +3,8 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { compileComplaints } from '../utils';
 import { legend, dropdownOptions } from './formOptions';
 import { LoadingButton } from './LoadingButton';
-import { ComplaintsWithAllegations } from '../ComplaintsWithAllegations';
 import { AllegationsTable } from '../AllegationsTable';
 
 export const SunburstHOC = (SunburstComponent, options) => {
@@ -43,15 +41,11 @@ export const SunburstHOC = (SunburstComponent, options) => {
       this.setState({ currentView });
     };
     makeString = (offset = 0) => {
-      console.log('offset in makestr', offset);
       const { slice1, slice2, slice3, currentView } = this.state;
       const currentViews = currentView.slice(1);
       let arr = [];
       for (let i = 0; i < currentViews.length; i++) {
         const key = this.state['slice' + [i + 1]];
-        // console.log('LLLL', legend);
-        // console.log('KKKK', key);
-        // console.log(legend[key]);
         let str = '';
         str += this.state['slice' + [i + 1]];
         str += '=';
@@ -59,35 +53,47 @@ export const SunburstHOC = (SunburstComponent, options) => {
         arr.push(str);
       }
       arr.push(`offset=${offset}`);
-      console.log('arrrrrrr', arr);
+
       return arr.join('&');
     };
     currentViewDisplay = () => {
       // grab the slice of this.state.currentView from 1
       // if that has a length, continue
-      const { slice1, slice2, slice3 } = this.state;
-      let str = '';
-      const curView = this.state.currentView.slice(1);
-      if (curView.length) {
-        let sub = legend[this.state.slice1] + curView[0];
+      const { slice1, slice2, slice3, currentView } = this.state;
+      let arr = [];
+      const currentViews = currentView.slice(1);
+      for (let i = 0; i < currentViews.length; i++) {
+        const key = this.state['slice' + [i + 1]];
+        let str = '';
+        str += legend[this.state['slice' + [i + 1]]];
+        str += ' is ';
+        str += currentViews[i];
+        arr.push(str);
       }
+      if (arr.length === 0) return '';
+
+      return 'All Allegations where ' + arr.join(' and ');
     };
 
-    handleQuery = (offset = 0) => {
-      // send query to API to get all allegations where up to 3 things are true
-      // set these allegations on state, and then use the complaints component to list all complaints
-      const { curOffset } = this.state;
-      console.log('this.state in handleQuery', this.state);
-      console.log('offsetWhat?', offset);
+    handleQuery = (options) => {
+      const { offset, isFirst, isLast } = options;
+      const { curOffset, totalQueryCount } = this.state;
+      let actualOffset = offset + curOffset;
+      if (isFirst) {
+        actualOffset = curOffset * 0;
+      }
+      if (isLast) {
+        actualOffset = Math.floor(totalQueryCount / offset) * offset;
+      }
       this.setState({ isQueryLoading: true });
       axios
-        .get(`/api/allegations?${this.makeString(offset + curOffset)}`)
+        .get(`/api/allegations?${this.makeString(actualOffset)}`)
         .then(({ data }) => {
           this.setState((state) => ({
             queryResults: data.data,
             isQueryLoading: false,
             totalQueryCount: data.count,
-            curOffset: state.curOffset + offset,
+            curOffset: actualOffset,
           }));
         })
         .catch((e) => console.error(e));
@@ -113,9 +119,6 @@ export const SunburstHOC = (SunburstComponent, options) => {
       this.setState({ [e.target.name]: e.target.value });
     };
 
-    navigate = (change) => {
-      this.handleQuery(change);
-    };
     isDisabled = (currentSlice, value) => {
       switch (currentSlice) {
         case 'slice1':
@@ -203,7 +206,7 @@ export const SunburstHOC = (SunburstComponent, options) => {
               </Row>
             </Form>
             <SunburstComponent
-              currentView={this.state.currentView}
+              currentViewDisplay={this.currentViewDisplay}
               setCurrentView={this.setCurrentView}
               handleQuery={this.handleQuery}
               data={this.state.complaintGraphData}
@@ -220,6 +223,8 @@ export const SunburstHOC = (SunburstComponent, options) => {
                 total={this.state.totalQueryCount}
                 handleQuery={this.handleQuery}
                 curOffset={this.state.curOffset}
+                NUMRESULTS={30}
+                description={this.currentViewDisplay()}
               />
             ) : null}
           </div>
