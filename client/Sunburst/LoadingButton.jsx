@@ -3,7 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
 export const LoadingButton = (props) => {
-  const { isLoading, onClick, type, buttonText } = props;
+  const { isLoading, onClick, type, buttonText, currentView } = props;
+
   return isLoading ? (
     <Button className="form-button" variant="primary" block disabled>
       <Spinner
@@ -22,6 +23,7 @@ export const LoadingButton = (props) => {
       className="form-button"
       type={type}
       block
+      disabled={currentView?.length < 2}
     >
       {buttonText}
     </Button>
