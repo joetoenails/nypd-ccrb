@@ -76,24 +76,10 @@ const App = (props) => {
             <Graph />
           </Route>
           <Route path="/piezoom">
-            <SunburstZoomWrapper
-              officers={officers}
-              setFilter={setFilter}
-              filter={filter}
-              ethnicities={ethnicities}
-              setOfficers={setOfficers}
-              setSortType={setSortType}
-            />
+            <SunburstZoomWrapper />
           </Route>
           <Route path="/pie">
-            <SunburstWrapper
-              officers={officers}
-              setFilter={setFilter}
-              filter={filter}
-              ethnicities={ethnicities}
-              setOfficers={setOfficers}
-              setSortType={setSortType}
-            />
+            <SunburstWrapper />
           </Route>
           <Route path="/bars">
             <Bars

@@ -1,7 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import axios from 'axios';
-
 import * as d3 from 'd3';
 
 export class SunburstZoomStaticData extends React.Component {

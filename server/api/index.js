@@ -28,6 +28,44 @@ router.get('/allegations', async (req, res, next) => {
       next(e);
     }
   }
+
+  if (Object.keys(req.query).length) {
+    // many wheres from req.query
+    console.log(Object.entries(req.query));
+    //TODO: Sanitize this string from USER INPUT!
+    // maybe grab all of columns from table and all uniques in those columns
+    // TODO: Deal with 'Unknown' and 'Null' ethnicities and genders, unexpected results on piezoom query
+    // TODO: Paginate.
+    const queryString = Object.entries(req.query)
+      .reduce((arrOfQueries, [col, detail]) => {
+        if (col !== 'offset') {
+          arrOfQueries.push(`${col} = '${detail}'`);
+        }
+        return arrOfQueries;
+      }, [])
+      .join(' AND ');
+
+    console.log(queryString);
+    try {
+      const count = await db.query(
+        `SELECT COUNT (*) FROM allegations
+      WHERE ${queryString}`
+      );
+
+      const result = await db.query(
+        `SELECT * FROM allegations
+      WHERE ${queryString}
+      LIMIT 30 OFFSET ${req.query.offset}`
+      );
+
+      return res.send({ count: count.rows[0].count, data: result.rows });
+    } catch (e) {
+      console.log(e);
+      next(e);
+      return;
+    }
+  }
+
   try {
     const result = await db.query(`
     SELECT count(*), unique_mos_id, first_name, last_name, mos_ethnicity, shield_no FROM allegations 
