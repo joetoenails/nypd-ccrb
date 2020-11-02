@@ -35,7 +35,6 @@ router.get('/allegations', async (req, res, next) => {
     //TODO: Sanitize this string from USER INPUT!
     // maybe grab all of columns from table and all uniques in those columns
     // TODO: Deal with 'Unknown' and 'Null' ethnicities and genders, unexpected results on piezoom query
-    // TODO: Paginate.
     const queryString = Object.entries(req.query)
       .reduce((arrOfQueries, [col, detail]) => {
         if (col !== 'offset') {
@@ -55,6 +54,7 @@ router.get('/allegations', async (req, res, next) => {
       const result = await db.query(
         `SELECT * FROM allegations
       WHERE ${queryString}
+      ORDER BY last_name
       LIMIT 30 OFFSET ${req.query.offset}`
       );
 
