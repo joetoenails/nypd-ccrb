@@ -85,10 +85,8 @@ export const Home = (props) => {
         this.
       </p>
       <p>
-        So much of our world is controlled by 'the data', but few undertake the
-        daunting task of reading and understanding the data. Hopefully these
-        tools will familiarize more every day people with some of this newly
-        available information.
+        Hopefully this set of tools will shed light on this information in a new
+        way.
       </p>
     </div>
   );
